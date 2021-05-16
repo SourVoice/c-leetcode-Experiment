@@ -1,0 +1,17 @@
+{
+  "files.associations": {
+    "alloc.h": "c",
+    "iostream": "cpp",
+    "stdio.h": "c",
+    "assert.h": "c",
+    "initializer_list": "cpp",
+    "type_traits": "cpp",
+    "xstring": "cpp",
+    "xutility": "cpp",
+    "creat_printlist.h": "c"
+  },
+  "code-runner.executorMap": {
+    "cpp": "cd $dir && g++ -std=c++11 $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe",
+    "c": " cd $dir && gcc $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe"
+  }
+}

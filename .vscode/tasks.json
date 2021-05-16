@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "gcc",
+      "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe",
+      "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe",
+        "-fexec-charset=GBK" //解决中文乱码
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "detail": "编译器: D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe"
+    }
+  ]
+}
