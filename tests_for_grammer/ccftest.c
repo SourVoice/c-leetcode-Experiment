@@ -33,7 +33,7 @@ int main(void)
     for (int i = 0; i < 7; i++)
     {
         if (equation[i] >= '0' && equation[i] <= '9')
-            sqstack_push(pre, &equation[i]);
+            sqstack_push(pre, equation[i]);
         else
         {
             if (i == 1)
@@ -90,6 +90,7 @@ int main(void)
     {
         sqstack_push(tail_equation, pre_top);
         sqstack_pop(pre, &pre_top);
+        pre_top = sqstack_top(pre);
     }
     //计算后缀表达式
     sqstack *result_stack = sqstack_creat();
@@ -103,9 +104,14 @@ int main(void)
         }
         else
         {
-            int first_operate_num = sqstack_top(result_stack);
+            char top_num = '0';
+            //取第一个操作数并pop掉
+            top_num = sqstack_top(result_stack);
+            char first_operate_num = top_num;
             sqstack_pop(result_stack, &first_operate_num);
-            int second_operate_num = sqstack_top(result_stack);
+            //取第二个操作数并pop掉
+            top_num = sqstack_top(result_stack);
+            char second_operate_num = top_num;
             sqstack_pop(result_stack, &second_operate_num);
             int temp_result_num = 0;
             switch (top_tail)
@@ -130,7 +136,8 @@ int main(void)
         }
         top_tail = sqstack_top(tail_equation);
     }
-    int result = sq return 0;
+    int result = sqstack_top(result_stack);
+    return 0;
 }
 //初始化栈
 sqstack *sqstack_creat()
