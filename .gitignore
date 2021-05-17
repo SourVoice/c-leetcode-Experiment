@@ -22,3 +22,5 @@ exe/test.exe
 .vscodebackup/settings.json
 .vscodebackup/tasks.json
 exe/递归解链表的反转.exe
+tests_for_grammer/power_function.cpp
+tests_for_grammer/test_for_switch.c
