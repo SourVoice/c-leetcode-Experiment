@@ -24,3 +24,4 @@ exe/test.exe
 exe/递归解链表的反转.exe
 tests_for_grammer/power_function.cpp
 tests_for_grammer/test_for_switch.c
+genericity泛型/堆栈的泛型模拟.c
