@@ -8,7 +8,11 @@
     "type_traits": "cpp",
     "xstring": "cpp",
     "xutility": "cpp",
-    "creat_printlist.h": "c"
+    "creat_printlist.h": "c",
+    "atomic": "c",
+    "cstring": "cpp",
+    "ostream": "cpp",
+    "xlocale": "cpp"
   },
   "code-runner.executorMap": {
     "cpp": "cd $dir && g++ -std=c++11 $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe",
