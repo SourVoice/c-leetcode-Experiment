@@ -7,17 +7,19 @@
 
 typedef struct
 {
-    char data[MAXSIZE];
+    int data[MAXSIZE];
+    char operate[MAXSIZE];
     int top_index;
 } sqstack; //栈结构
 
 sqstack *sqstack_creat();
-void sqstack_push(sqstack *, char);  //入栈
-void sqstack_pop(sqstack *, char *); //出栈
-char sqstack_top(sqstack *);         //栈顶记录
-int is_empty(sqstack *);             //断言空栈
-int is_full(sqstack *);              //断言溢出
+void sqstack_push(sqstack *, int, char);    //入栈
+void sqstack_pop(sqstack *, int *, char *); //出栈
+char sqstack_top(sqstack *);                //栈顶记录
+int is_empty(sqstack *);                    //断言空栈
+int is_full(sqstack *);                     //断言溢出
 void sqstack_display(sqstack *);
+void input_equation();
 int main()
 {
     //输入表达式
@@ -31,8 +33,12 @@ int main()
     sqstack *operation = sqstack_creat(); //操作符栈
     for (int i = 0; i < 7; i++)
     {
+        int value = 0;
         if (equation[i] >= '0' && equation[i] <= '9')
-            sqstack_push(pre, equation[i]);
+        {
+            value = value * 10 + equation[i];
+            sqstack_push(pre, value);
+        }
         else
         {
             if (i == 1)
@@ -142,6 +148,11 @@ int main()
         printf("No\n");
     printf("%d\n", result);
 }
+
+void input_equation()
+{
+}
+
 //初始化栈
 sqstack *sqstack_creat()
 {
@@ -151,16 +162,18 @@ sqstack *sqstack_creat()
     return stack;
 }
 //push
-void sqstack_push(sqstack *stack, char element) //入栈
+void sqstack_push(sqstack *stack, int data_element, char operate_element) //入栈
 {
     assert(!is_full(stack));
-    stack->data[++stack->top_index] = element;
+    stack->data[++stack->top_index] = data_element;
+    stack->operate[stack->top_index] = operate_element;
 }
 //pop
-void sqstack_pop(sqstack *stack, char *element)
+void sqstack_pop(sqstack *stack, int *data_element, char *operate_element)
 {
     assert(!is_empty(stack));
-    *element = stack->data[stack->top_index--];
+    *data_element = stack->data[stack->top_index];
+    *operate_element = stack->operate[stack->top_index--];
 }
 //返回栈顶值
 char sqstack_top(sqstack *stack)

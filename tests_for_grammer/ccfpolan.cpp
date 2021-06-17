@@ -18,8 +18,21 @@ char sqstack_top(sqstack *);         //栈顶记录
 int is_empty(sqstack *);             //断言空栈
 int is_full(sqstack *);              //断言溢出
 void sqstack_display(sqstack *);
-
+void solution();
 int main(void)
+{
+    int n;
+    scanf("%d", &n);
+    getchar();
+    while (n)
+    {
+        solution();
+        n--;
+    }
+    return 0;
+}
+
+void solution()
 {
     //输入表达式
     char equation[7] = {0};
@@ -27,9 +40,10 @@ int main(void)
     {
         equation[i] = getchar();
     }
+    getchar();
     //中缀转后缀
-    sqstack *pre = sqstack_creat();     //后缀表达式
-    sqstack *operator= sqstack_creat(); //操作符栈
+    sqstack *pre = sqstack_creat();       //后缀表达式
+    sqstack *operation = sqstack_creat(); //操作符栈
     for (int i = 0; i < 7; i++)
     {
         if (equation[i] >= '0' && equation[i] <= '9')
@@ -37,70 +51,67 @@ int main(void)
         else
         {
             if (i == 1)
-                sqstack_push(operator, equation[i]);
+                sqstack_push(operation, equation[i]);
             else
             {
-                char operator_top = sqstack_top(operator);
+                char operation_top = sqstack_top(operation);
                 switch (equation[i])
                 {
                 case '+':
-                    if (operator_top == '*' || operator_top == '/') //栈顶为'*'或'/'时弹出符号栈入后缀栈
-                        while (operator->top_index != 0)
+                    if (operation_top == '*' || operation_top == '/') //栈顶为'*'或'/'时弹出符号栈入后缀栈
+                        while (!is_empty(operation))
                         {
-                            sqstack_push(pre, operator_top);
-                            sqstack_pop(operator, & operator_top);
-                            operator_top = sqstack_top(operator);
+                            sqstack_push(pre, operation_top);
+                            sqstack_pop(operation, &operation_top);
+                            operation_top = sqstack_top(operation);
                         }
                     else
-                        sqstack_push(operator, equation[i]);
+                        sqstack_push(operation, equation[i]);
                     break;
                 case '-':
-                    if (operator_top == '*' || operator_top == '/') //栈顶为'*'或'/'时弹出符号栈入后缀栈
-                        while (operator->top_index != 0)
+                    if (operation_top == '*' || operation_top == '/') //栈顶为'*'或'/'时弹出符号栈入后缀栈
+                        while (!is_empty(operation))
                         {
-                            sqstack_push(pre, operator_top);
-                            sqstack_pop(operator, & operator_top);
-                            operator_top = sqstack_top(operator);
+                            sqstack_push(pre, operation_top);
+                            sqstack_pop(operation, &operation_top);
+                            operation_top = sqstack_top(operation);
                         }
                     else
-                        sqstack_push(operator, equation[i]);
+                        sqstack_push(operation, equation[i]);
                     break;
                 case '*':
-                    sqstack_push(operator, equation[i]);
+                    sqstack_push(operation, equation[i]);
                     break;
                 case '/':
-                    sqstack_push(operator, equation[i]);
+                    sqstack_push(operation, equation[i]);
                     break;
                 }
             }
         }
     }
     //操作符栈全部弹出并push进入pre
-    char operator_top = sqstack_top(operator);
-    while (operator->top_index != 0)
+    while (!is_empty(operation))
     {
-        sqstack_push(pre, operator_top);
-        sqstack_pop(operator, & operator_top);
-        operator_top = sqstack_top(operator);
+        char operation_top = sqstack_top(operation);
+        sqstack_push(pre, operation_top);
+        sqstack_pop(operation, &operation_top);
     }
     //pre反转
     sqstack *tail_equation = sqstack_creat(); //后缀表达式的栈形式
-    char pre_top = sqstack_top(pre);
-    while (pre->top_index != 0)
+    while (!is_empty(pre))
     {
+        char pre_top = sqstack_top(pre);
         sqstack_push(tail_equation, pre_top);
         sqstack_pop(pre, &pre_top);
-        pre_top = sqstack_top(pre);
     }
     //计算后缀表达式
     sqstack *result_stack = sqstack_creat();
-    char top_tail = sqstack_top(tail_equation);
-    while (tail_equation->top_index != 0)
+    while (!is_empty(tail_equation) && !is_empty(tail_equation))
     {
+        char top_tail = sqstack_top(tail_equation); //后缀式顶元素
         if (top_tail >= '0' && top_tail <= '9')
         {
             sqstack_push(result_stack, top_tail);
-            sqstack_pop(pre, &top_tail);
         }
         else
         {
@@ -117,27 +128,33 @@ int main(void)
             switch (top_tail)
             {
             case '+':
-                temp_result_num = second_operate_num + first_operate_num;
-                sqstack_push(result_stack, temp_result_num);
+                temp_result_num = (int)(second_operate_num - '0') + (int)(first_operate_num - '0');
+                sqstack_push(result_stack, (char)temp_result_num + '0');
                 break;
             case '*':
-                temp_result_num = second_operate_num * first_operate_num;
-                sqstack_push(result_stack, temp_result_num);
+                temp_result_num = (int)(second_operate_num - '0') * (int)(first_operate_num - '0');
+                sqstack_push(result_stack, (char)temp_result_num + '0');
                 break;
             case '-':
-                temp_result_num = second_operate_num - first_operate_num;
-                sqstack_push(result_stack, temp_result_num);
+                temp_result_num = -(int)(second_operate_num - '0') - (int)(first_operate_num - '0');
+                sqstack_push(result_stack, (char)temp_result_num + '0');
                 break;
             case '/':
-                temp_result_num = second_operate_num / first_operate_num;
-                sqstack_push(result_stack, temp_result_num);
+                temp_result_num = (int)(second_operate_num - '0') / (int)(first_operate_num - '0');
+                sqstack_push(result_stack, (char)temp_result_num + '0');
                 break;
             }
         }
+        sqstack_pop(tail_equation, &top_tail);
+        if (is_empty(tail_equation))
+            break;
         top_tail = sqstack_top(tail_equation);
     }
-    int result = sqstack_top(result_stack);
-    return 0;
+    int result = sqstack_top(result_stack) - '0';
+    if (result == 24)
+        printf("Yes\n");
+    else
+        printf("No\n");
 }
 //初始化栈
 sqstack *sqstack_creat()

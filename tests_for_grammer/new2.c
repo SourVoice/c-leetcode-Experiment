@@ -121,7 +121,7 @@ int main()
                 sqstack_push(result_stack, (char)temp_result_num + '0');
                 break;
             case '-':
-                temp_result_num = -(int)(second_operate_num - '0') - (int)(first_operate_num - '0');
+                temp_result_num = (int)(second_operate_num - '0') - (int)(first_operate_num - '0');
                 sqstack_push(result_stack, (char)temp_result_num + '0');
                 break;
             case '/':
