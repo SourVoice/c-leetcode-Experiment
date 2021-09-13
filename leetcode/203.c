@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct ListNode
+struct LINK
 {
     int val;
-    struct ListNode *next;
+    struct LINK *next;
 };
 //没有使用指针的指针
-struct ListNode *removeElements(struct ListNode *head, int val)
+struct LINK *removeElements(struct LINK *head, int val)
 {
-    struct ListNode *current = head;
-    struct ListNode *preview = head;
+    struct LINK *current = head;
+    struct LINK *preview = head;
     if (head == NULL)
         return head;
     while (current != NULL)
@@ -42,17 +42,17 @@ struct ListNode *removeElements(struct ListNode *head, int val)
 
     return head;
 }
-struct ListNode *creat()
+struct LINK *creat()
 {
-    struct ListNode *head = NULL;
-    head = (struct ListNode *)malloc(sizeof(struct ListNode *));
+    struct LINK *head = NULL;
+    head = (struct LINK *)malloc(sizeof(struct LINK *));
     if (head == NULL)
         return NULL;
-    struct ListNode *current = head;
-    struct ListNode *newnode = NULL;
+    struct LINK *current = head;
+    struct LINK *newnode = NULL;
     for (int i = 0; i < 1; i++)
     {
-        newnode = (struct ListNode *)malloc(sizeof(struct ListNode *));
+        newnode = (struct LINK *)malloc(sizeof(struct LINK *));
         if (newnode == NULL)
             return NULL;
         scanf("%d", &newnode->val);
@@ -62,7 +62,7 @@ struct ListNode *creat()
     }
     return head->next;
 }
-void printList(struct ListNode *head)
+void printList(struct LINK *head)
 {
     while (head != NULL)
     {
@@ -72,7 +72,7 @@ void printList(struct ListNode *head)
 }
 int main()
 {
-    struct ListNode *head = NULL;
+    struct LINK *head = NULL;
     head = creat();
     printList(head);
     head = removeElements(head, 1);

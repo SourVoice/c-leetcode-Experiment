@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct ListNode
+struct LINK
 {
     int val;
-    struct ListNode *next;
+    struct LINK *next;
 };
-struct ListNode *reverseList(struct ListNode *head)
+struct LINK *reverseList(struct LINK *head)
 {
-    struct ListNode *preview = NULL;
-    struct ListNode *current = NULL;
-    struct ListNode *temp = NULL;
+    struct LINK *preview = NULL;
+    struct LINK *current = NULL;
+    struct LINK *temp = NULL;
     current = head;
     int flag = 0;
     if (head == NULL)

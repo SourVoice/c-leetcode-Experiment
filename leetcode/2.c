@@ -6,16 +6,16 @@
  * }List;
  */
 
-struct ListNode *addTwoNumbers(struct ListNode *l1, struct ListNode *l2)
+struct LINK *addTwoNumbers(struct LINK *l1, struct LINK *l2)
 {
     int flag = 0;
-    struct ListNode *newlist = NULL;
-    struct ListNode *temp = NULL;
-    temp = (struct ListNode *)malloc(sizeof(struct ListNode));
+    struct LINK *newlist = NULL;
+    struct LINK *temp = NULL;
+    temp = (struct LINK *)malloc(sizeof(struct LINK));
     if (temp == NULL)
         return NULL;
 
-    struct ListNode *head = NULL;
+    struct LINK *head = NULL;
     head = temp;
 
     if (l1 == NULL && l2 == NULL)
@@ -27,7 +27,7 @@ struct ListNode *addTwoNumbers(struct ListNode *l1, struct ListNode *l2)
 
     while (l1->next && l2->next)
     {
-        newlist = (struct ListNode *)malloc(sizeof(struct ListNode));
+        newlist = (struct LINK *)malloc(sizeof(struct LINK));
         if (newlist == NULL)
             return NULL;
         if (newlist == NULL)
@@ -58,7 +58,7 @@ struct ListNode *addTwoNumbers(struct ListNode *l1, struct ListNode *l2)
     }
     if (l1 && l2)
     {
-        newlist = (struct ListNode *)malloc(sizeof(struct ListNode));
+        newlist = (struct LINK *)malloc(sizeof(struct LINK));
         if (newlist == NULL)
             return NULL;
         if (l1->val + l2->val + flag >= 10)
@@ -101,8 +101,8 @@ struct ListNode *addTwoNumbers(struct ListNode *l1, struct ListNode *l2)
 
     if (newlist == NULL && flag == 1)
     {
-        newlist = (struct ListNode *)malloc(sizeof(struct ListNode));
-        struct ListNode *tail = (struct ListNode *)malloc(sizeof(struct ListNode));
+        newlist = (struct LINK *)malloc(sizeof(struct LINK));
+        struct LINK *tail = (struct LINK *)malloc(sizeof(struct LINK));
         tail->val = flag;
         tail->next = NULL;
         newlist = tail;

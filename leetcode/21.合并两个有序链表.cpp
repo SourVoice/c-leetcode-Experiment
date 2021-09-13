@@ -6,14 +6,14 @@
  * };
  */
 #include <malloc.h>
-struct ListNode
+struct LINK
 {
     int val;
-    struct ListNode *next;
+    struct LINK *next;
 };
-struct ListNode *mergeTwoLists(struct ListNode *l1, struct ListNode *l2)
+struct LINK *mergeTwoLists(struct LINK *l1, struct LINK *l2)
 {
-    struct ListNode *p = (struct ListNode *)malloc(sizeof(struct ListNode));
+    struct LINK *p = (struct LINK *)malloc(sizeof(struct LINK));
     if (!p)
     {
         return NULL;

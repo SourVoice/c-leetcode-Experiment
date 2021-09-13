@@ -1,24 +1,24 @@
 #include <stdio.h>
-struct ListNode
+struct LINK
 {
     int val;
-    struct ListNode *next;
+    struct LINK *next;
 };
 
-struct ListNode *reverseList(struct ListNode *head)
+struct LINK *reverseList(struct LINK *head)
 {
-    struct ListNode *block = NULL;
-    struct ListNode *current = NULL;
-    struct ListNode *newnode = NULL;
-    struct ListNode *inversion = NULL;
-    struct ListNode *newcurrent = inversion;
-    inversion = (struct ListNode *)malloc(sizeof(struct ListNode *));
+    struct LINK *block = NULL;
+    struct LINK *current = NULL;
+    struct LINK *newnode = NULL;
+    struct LINK *inversion = NULL;
+    struct LINK *newcurrent = inversion;
+    inversion = (struct LINK *)malloc(sizeof(struct LINK *));
     newnode = inversion;
     while (current != head)
     {
         while (current->next != block)
             current = current->next;
-        newnode = (struct ListNode *)malloc(sizeof(struct ListNode *));
+        newnode = (struct LINK *)malloc(sizeof(struct LINK *));
         newnode->val = current->val;
         newnode->next = NULL;
         newcurrent = newnode;
