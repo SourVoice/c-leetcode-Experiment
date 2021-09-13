@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct ListNode
+struct LINK
 {
     int val;
-    struct ListNode *next;
+    struct LINK *next;
 };
-struct ListNode *creat_list(int total_elements)
+struct LINK *creat_list(int total_elements)
 {
-    struct ListNode *head;
-    head = (struct ListNode *)malloc(sizeof(struct ListNode));
-    struct ListNode *current = head;
-    struct ListNode *newnode = NULL;
+    struct LINK *head;
+    head = (struct LINK *)malloc(sizeof(struct LINK));
+    struct LINK *current = head;
+    struct LINK *newnode = NULL;
     for (int i = 0; i < total_elements; i++)
     {
-        newnode = (struct ListNode *)malloc(sizeof(struct ListNode));
+        newnode = (struct LINK *)malloc(sizeof(struct LINK));
         if (newnode == NULL)
             return NULL;
         scanf("%d", &newnode->val);
@@ -23,7 +23,7 @@ struct ListNode *creat_list(int total_elements)
     }
     return head->next;
 }
-void print_List(struct ListNode *head)
+void print_List(struct LINK *head)
 {
     while (head != NULL)
     {
@@ -32,7 +32,7 @@ void print_List(struct ListNode *head)
     }
     printf("\n");
 }
-void print_nodeAddress(struct ListNode *head)
+void print_nodeAddress(struct LINK *head)
 {
     while (head != NULL)
     {

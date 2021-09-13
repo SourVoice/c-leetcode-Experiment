@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include "creat_printList.h"
 
-struct ListNode *reverse(struct ListNode *head)
+struct LINK *reverse(struct LINK *head)
 {
     if (head == NULL || head->next == NULL)
         return head;
     print_nodeAddress(head);
-    struct ListNode *new_head = reverse(head->next); //new_head 递去最终为最后一个结点，此后每次返回new_head以保持new_head始终为新的头节点
+    struct LINK *new_head = reverse(head->next); //new_head 递去最终为最后一个结点，此后每次返回new_head以保持new_head始终为新的头节点
     // print_nodeAddress(head);
     head->next->next = head;
     head->next = NULL;
@@ -17,7 +17,7 @@ struct ListNode *reverse(struct ListNode *head)
 }
 int main()
 {
-    struct ListNode *head = NULL;
+    struct LINK *head = NULL;
     head = creat_list(3);
     print_List(head);
     head = reverse(head);
