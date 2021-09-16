@@ -66,10 +66,10 @@ int main()
     }
     /*print all of them*/
     head = head->next;
-    head = delet(&head, 10);
-    for (int i = 0; i < 5; i++)
+    head = delet(&head, 1);
+    while (head != NULL)
     {
-        printf("%d\n", head->value);
+        printf("%d ", head->value);
         head = head->next;
     }
     return 0;
