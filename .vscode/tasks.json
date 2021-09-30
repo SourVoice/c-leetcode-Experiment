@@ -10,7 +10,8 @@
         "${file}",
         "-o",
         "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe",
-        "-fexec-charset=GBK" //解决中文乱码
+        "-fexec-charset=GBK" // 处理mingw中文编码问题
+        // "-finput-charset=UTF-8" // 处理mingw中文编码问题
       ],
       "options": {
         "cwd": "${workspaceFolder}"
