@@ -26,3 +26,8 @@ tests_for_grammer/power_function.cpp
 tests_for_grammer/test_for_switch.c
 genericity泛型/堆栈的泛型模拟.c
 exe/create_and_delet.exe
+exe/删除重复元素.exe
+exe/折半查找.exe
+exe/d.exe
+exe/ee.exe
+exe/find.exe
