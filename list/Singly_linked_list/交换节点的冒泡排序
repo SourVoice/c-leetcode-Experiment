@@ -1,4 +1,9 @@
 
+typedef struct _node
+{
+    int data;
+    struct _node next;
+} List, Node;
 void sortList(List *L, int len) //交换节点的冒泡排序
 {
     Node *p = (Node *)malloc(sizeof(Node));
