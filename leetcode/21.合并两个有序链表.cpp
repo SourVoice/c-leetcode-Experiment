@@ -6,14 +6,18 @@
  * };
  */
 #include <malloc.h>
-struct LINK
+struct ListNode
 {
     int val;
-    struct LINK *next;
+    struct ListNode *next;
 };
-struct LINK *mergeTwoLists(struct LINK *l1, struct LINK *l2)
+struct ListNode *mergeTwoLists(struct ListNode *l1, struct ListNode *l2)
 {
-    struct LINK *p = (struct LINK *)malloc(sizeof(struct LINK));
+    struct ListNode *p = (struct ListNode *)malloc(sizeof(struct ListNode));
+    struct ListNode *head = (struct ListNode *)malloc(sizeof(struct ListNode));
+    head = p;
+    head->next = l1;
+
     if (!p)
     {
         return NULL;
@@ -22,19 +26,21 @@ struct LINK *mergeTwoLists(struct LINK *l1, struct LINK *l2)
     {
         if (l1->val <= l2->val)
         {
-            p->next = l1;
+            p = l1;
             l1 = l1->next;
         }
         else
         {
+            struct ListNode *tmp = l2->next;
             p->next = l2;
-            l2 = l2->next;
+            p = l2;
+            l2->next = l1;
+            l2 = tmp;
         }
-        p = p->next;
     }
     if (l1)
         p->next = l1;
     else
         p->next = l2;
-    return p;
+    return head->next;
 }
