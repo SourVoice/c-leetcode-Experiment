@@ -1,0 +1,35 @@
+
+void sortList(List *L, int len) //交换节点的冒泡排序
+{
+    Node *p = (Node *)malloc(sizeof(Node));
+    Node *head = (Node *)malloc(sizeof(Node));
+    int minData;
+    for (int i = 0; i < len; i++)
+    {
+        p = L->next;
+        head = L;
+        Node *q = (Node *)malloc(sizeof(Node));
+        q = p->next;
+        for (int j = 0; j < len - i - 1; j++)
+        {
+            if (p->data > q->data)
+            {
+                p->next = q->next;
+                q->next = p;
+                head->next = q;
+
+                Node *temp = (Node *)malloc(sizeof(Node));
+                temp = q;
+                q = p;
+                p = temp;
+
+                head->next = p;
+            }
+            //指针向前一步
+            p = p->next;
+            q = q->next;
+            head = head->next;
+        }
+    }
+}
+//http://www.manongjc.com/detail/16-xstwdhedgqxhlwp.html
