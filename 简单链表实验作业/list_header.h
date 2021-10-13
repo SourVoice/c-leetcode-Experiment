@@ -30,7 +30,7 @@ int insert_by_value(Link *current, int new_value) //将新的结点信息传递进函数
 {
     Link *previous;
     Link *newNode;
-    while (current != NULL & current->value < new_value) //previous指向小于current的上一个结点,不断向前移动
+    while (current != NULL && current->value < new_value) //previous指向小于current的上一个结点,不断向前移动
     {
         previous = current;
         current = current->next;
