@@ -14,9 +14,11 @@ typedef struct _polyTable
 {
     List poly[MAXSIZE];
 } Table;
-
-List *
-creat_list(int total_elements)
+typedef struct _Ltable
+{
+    List list[MAXSIZE];
+} LTable;
+List *creat_list(int total_elements)
 {
     List *head;
     head = (List *)malloc(sizeof(List));
@@ -28,7 +30,7 @@ creat_list(int total_elements)
         newNode = (List *)malloc(sizeof(List));
         if (newNode == NULL)
             return NULL;
-        scanf("%d", &newNode->value);
+        scanf_s("%d", &newNode->value);
         newNode->next = NULL;
         current->next = newNode;
         current = newNode;
@@ -44,10 +46,10 @@ void creatPoly(List *L)
     current = L;
     current->next = NULL;
     int value, n;
-    while (scanf("%d%d", &value, &n) != EOF)
+    while (scanf_s("%d%d", &value, &n) != EOF)
     {
 
-        //scanf("%d %d", &newNode->value, &newNode->n)
+        //scanf_s("%d %d", &newNode->value, &newNode->n)
         Node *newNode = (Node *)malloc(sizeof(Node));
         if (newNode == NULL)
             return;
@@ -86,7 +88,7 @@ void bubleSortPoly(List *L) //交换节点的冒泡排序
     head = L;
     Node *tail = (Node *)malloc(sizeof(Node));
     Node *q = (Node *)malloc(sizeof(Node));
-    for (tail = NULL; head->next != tail; tail = p)
+    for (tail = NULL; head->next != tail; tail = q)
     {
         p = head; //每次循环从头开始(p代表指向第一个结点)
         q = p->next;
@@ -100,8 +102,6 @@ void bubleSortPoly(List *L) //交换节点的冒泡排序
             }
             else
                 q = q->next;
-
-            p = p->next;
         }
     }
 }
@@ -245,17 +245,21 @@ List *subPoly(List *poly1, List *poly2)
 }
 void displayPoly(List *L)
 {
-    if (L->next->value > 0)
+    Node *Pre = (Node *)malloc(sizeof(Node));
+    Pre = L->next;
+    if (L->next->n != 0)
     {
-
-        printf("%d", L->next->value);
+        if (L->next->value > 0)
+        {
+            printf("%d", L->next->value);
+        }
+        else
+        {
+            printf("-");
+            printf("%d", abs(L->next->value));
+        }
+        printf("X^%d", L->next->n);
     }
-    else
-    {
-        printf("-");
-        printf("%d", abs(L->next->value));
-    }
-    printf("X^%d", L->next->n);
     L = L->next;
     while (L->next)
     {
@@ -266,12 +270,18 @@ void displayPoly(List *L)
         }
         else if (L->next->value > 0)
         {
-            printf("+");
-            printf("%d", abs(L->next->value));
+            if (Pre->n == 0)
+                printf("%d", abs(L->next->value));
+            else
+            {
+                printf("+");
+                printf("%d", abs(L->next->value));
+            }
         }
         else
             continue;
         printf("X^%d", L->next->n);
+        Pre = L;
         L = L->next;
     }
 }
