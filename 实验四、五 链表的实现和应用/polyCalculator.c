@@ -31,6 +31,7 @@ int main()
             scanf("%d", &totalElements);
             ListTable.list[ListNO] = *creat_list(totalElements);
             print_list(&ListTable.list[ListNO]);
+            printf("新的到的多项式的编号为: %d\n", ListNO);
             ListNO++;
         }
         else if (choose == 2)
@@ -79,12 +80,14 @@ int main()
             free(list);
             list = NULL;
             printf("已被释放\n");
+            ListNO--;
         }
-
         else if (choose == 5)
         {
             printf("输入要合并链表的编号");
             scanf("%d %d", &toMerge1, &toMerge2);
+            printf("新的到的多项式的编号为: %d\n", ListNO);
+            ListNO++;
         }
         else if (choose == 6)
         {
@@ -104,7 +107,7 @@ int main()
             {
                 printf("多项式计算器模式\n");
                 printf("输入0: 退出计算器模式\n");
-                printf("输入1: 输入多项式1\n");
+                printf("输入1: 输入多项式\n");
                 printf("输入2: 多项式相加\n");
                 printf("输入4: 显示多项式\n");
                 scanf("%d", &polyChoose);
@@ -112,8 +115,8 @@ int main()
                 {
                     printf("\t输入多项式 (格式: cX^n) : ");
                     polyTable.poly[i] = *(List *)malloc(sizeof(List));
-
                     creatPoly(&polyTable.poly[i]);
+                    printf("新的到的多项式的编号为: %d\n", i);
                     i++;
                 }
                 if (polyChoose == 2)
@@ -121,6 +124,7 @@ int main()
                     printf("\t输入要相加的多项式的编号: ");
                     scanf("%d %d", &toAdd1, &toAdd2);
                     polyTable.poly[i] = *addPoly(&polyTable.poly[toAdd1], &polyTable.poly[toAdd2]);
+                    printf("新的到的多项式的编号为: %d\n", i);
                     i++;
                 }
                 if (polyChoose == 3)
@@ -136,7 +140,7 @@ int main()
                     displayPoly(&polyTable.poly[toDisplayNum]);
                     printf("\n");
                 }
-                if (choose == 0)
+                if (polyChoose == 0)
                 {
                     break;
                 }
