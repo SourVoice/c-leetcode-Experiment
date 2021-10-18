@@ -84,9 +84,23 @@ int main()
         }
         else if (choose == 5)
         {
+            int mergeWay = 0;
             printf("输入要合并链表的编号");
             scanf("%d %d", &toMerge1, &toMerge2);
+            printf("    合并方式\n");
+            printf("    输入0：无序合并\n");
+            printf("    输入1：有序合并\n");
+            scanf("%d", &mergeWay);
+            if (mergeWay == 0)
+            {
+                ListTable.list[ListNO] = *mergeListDisorder(&ListTable.list[toMerge1], &ListTable.list[toMerge2]);
+            }
+            else
+            {
+                ListTable.list[ListNO] = *mergeTwoListsInOrder(&ListTable.list[toMerge1], &ListTable.list[toMerge2]);
+            }
             printf("新的到的多项式的编号为: %d\n", ListNO);
+            print_list(&ListTable.list[ListNO]);
             ListNO++;
         }
         else if (choose == 6)

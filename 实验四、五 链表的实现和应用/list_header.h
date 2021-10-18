@@ -35,7 +35,7 @@ List *creat_list(int total_elements)
         current->next = newNode;
         current = newNode;
     }
-    return head->next;
+    return head;
 }
 void creatPoly(List *L)
 {
@@ -397,13 +397,13 @@ void bubleSortList(List *L) //交换节点的冒泡排序
     head = L;
     Node *tail = (Node *)malloc(sizeof(Node));
     Node *q = (Node *)malloc(sizeof(Node));
-    for (tail = NULL; head->next != tail; tail = p)
+    for (tail = NULL; head->next != tail; tail = q)
     {
         p = head; //每次循环从头开始(p代表指向第一个结点)
         q = p->next;
-        for (; p->next != tail;)
+        for (; q->next != tail;)
         {
-            if (p->value > q->next->value)
+            if (q->value > q->next->value)
             {
                 p->next = q->next;
                 q->next = q->next->next;
@@ -429,9 +429,11 @@ void remove_duplicates(List *list)
         {
             if (current->value == val)
             {
+                Node *tmp = (Node *)malloc(sizeof(Node));
+                tmp = current->next;
                 pre->next = current->next;
                 free(current);
-                current = pre->next;
+                current = tmp;
                 continue;
             }
             pre = current;
@@ -441,12 +443,14 @@ void remove_duplicates(List *list)
     }
 }
 
-List *mergeTwoLists(List *l1, List *l2)
+List *mergeTwoListsInOrder(List *l1, List *l2)
 {
     bubleSortList(l1);
     bubleSortList(l2);
     Node *p = (Node *)malloc(sizeof(Node));
     Node *head = (Node *)malloc(sizeof(Node));
+    l1 = l1->next;
+    l2 = l2->next;
     head = p;
     head->next = l1;
 
@@ -476,12 +480,64 @@ List *mergeTwoLists(List *l1, List *l2)
         p->next = l2;
 
     remove_duplicates(head);
-    return head->next;
+    return head;
 }
+List *mergeListDisorder(List *l1, List *l2)
+{
+    Node *p1 = (Node *)malloc(sizeof(Node));
+    Node *p2 = (Node *)malloc(sizeof(Node));
+    p1 = l1->next;
+    p2 = l2->next;
+    Node *Pre = (Node *)malloc(sizeof(Node));
+    List *result = (List *)malloc(sizeof(List));
+    Node *cur = (Node *)malloc(sizeof(Node));
+    Node *newNode = (Node *)malloc(sizeof(Node));
 
+    cur = result;
+    while (p1)
+    {
+        newNode = (Node *)malloc(sizeof(Node));
+        newNode->value = p1->value;
+        newNode->next = NULL;
+        cur->next = newNode;
+        cur = newNode;
+        p1 = p1->next;
+    }
+    while (p2)
+    {
+        newNode = (Node *)malloc(sizeof(Node));
+        newNode->value = p2->value;
+        newNode->next = NULL;
+        cur->next = newNode;
+        cur = newNode;
+        p2 = p2->next;
+    }
+    cur = result->next;
+    Node *q = (Node *)malloc(sizeof(Node));
+    while (cur)
+    {
+        q = cur->next;
+        Pre = cur;
+        while (q)
+        {
+            if (q->value == cur->value)
+            {
+                Node *tmp = (Node *)malloc(sizeof(Node));
+                tmp = q->next;
+                Pre->next = q->next;
+                q = tmp;
+                continue;
+            }
+            q = q->next;
+            Pre = Pre->next;
+        }
+        cur = cur->next;
+    }
+    return result;
+}
 void print_list(List *list)
 {
-    List *current = list;
+    List *current = list->next;
     while (current != NULL)
     {
         printf("%d ", current->value);
