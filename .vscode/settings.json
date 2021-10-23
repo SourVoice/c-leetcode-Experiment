@@ -10,17 +10,36 @@
     "xstring": "cpp",
     "xutility": "cpp",
     "creat_printlist.h": "c",
-    "atomic": "c",
-    "cstring": "cpp",
     "ostream": "cpp",
+    "limits": "cpp",
+    "*.tcc": "cpp",
+    "istream": "cpp",
+    "streambuf": "cpp",
+    "string": "cpp",
+    "iosfwd": "cpp",
+    "xmemory": "cpp",
+    "algorithm": "cpp",
+    "stack": "cpp",
+    "atomic": "cpp",
+    "deque": "cpp",
+    "iterator": "cpp",
+    "sstream": "cpp",
+    "vector": "cpp",
     "xlocale": "cpp",
-    "xiosbase": "c",
-    "cstdlib": "c"
+    "xlocnum": "cpp",
+    "xiosbase": "cpp",
+    "xhash": "cpp",
+    "bits/stdc++.h": "cpp",
+    "postfix_evaluator.h": "c"
   },
   "code-runner.executorMap": {
     "cpp": "cd $dir && g++ -std=c++11 $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe",
     "c": " cd $dir && gcc $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe"
   },
   "asoul.reminderViewIntervalInMinutes": 30,
-  "files.encoding": "gbk"
+  "files.encoding": "gbk",
+  "writeCnblog": {
+    "rpcUrl": "https://rpc.cnblogs.com/metaweblog/ladies",
+    "userName": "RochesterBen"
+  }
 }
