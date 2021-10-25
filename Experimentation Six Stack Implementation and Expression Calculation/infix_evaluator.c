@@ -28,8 +28,8 @@ int isFullNum(char *stack)
 
 int performOperation(int *numstack, char *operations)
 {
-    int a = numbers.popNum();
-    int b = numbers.pop();
+    int a = popNum(numstack);
+    int b = popNum(numstack);
     char operation = pop(operation);
     switch (operation)
     {
@@ -57,7 +57,7 @@ int InfixEvaluation(const char *infix)
     char operations[32];
     const char *strpos = infix, *strend = infix + strlen(infix);
     int num = 0;
-    while (strpos < strend)
+    while (strpos <= strend)
     {
         char c = *strpos;
         //check if it is number
@@ -123,4 +123,14 @@ int InfixEvaluation(const char *infix)
         pushNum(numStack, output);
     }
     return popNum(numStack);
+}
+int main()
+{
+    char *input = "12+(256*7-1)-10", *output;
+    printf("input:%s\n", input);
+    if (input)
+    {
+        printf("result:%d", InfixEvaluation(input));
+    }
+    return 0;
 }
