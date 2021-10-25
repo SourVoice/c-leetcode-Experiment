@@ -1,4 +1,5 @@
 #include "judgeFunction.h"
+#include "stack.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -24,51 +25,75 @@ int isFullNum(char *stack)
 {
     return top == numstackSize - 1;
 }
+
+int performOperation(int *numstack, char *operations)
+{
+    int a = numbers.popNum();
+    int b = numbers.pop();
+    char operation = pop(operation);
+    switch (operation)
+    {
+    case '+':
+        return a + b;
+    case '-':
+        return b - a;
+    case '*':
+        return a * b;
+    case '/':
+        if (a == 0)
+            printf("Cannot divide by zero");
+        return b / a;
+    }
+    return 0;
+}
+
 int InfixEvaluation(const char *infix)
 {
 
     //Stack for Numbers
-    char stack[32];
+    int numStack[32];
 
     //Stack for operators
     char operations[32];
     const char *strpos = infix, *strend = infix + strlen(infix);
-    for (int i = 0; i < strlen(infix); i++)
+    int num = 0;
+    while (strpos < strend)
     {
-        char c = expression.charAt(i);
+        char c = *strpos;
         //check if it is number
-        if (Character.isDigit(c))
+        if (is_ident(c))
         {
             //Entry is Digit, it could be greater than one digit number
-            int num = 0;
-            while (Character.isDigit(c))
+            num = num * 10 + (c - '0');
+
+            if (is_ident(c))
             {
-                num = num * 10 + (c - '0');
-                i++;
-                if (i < expression.length())
-                    c = expression.charAt(i);
-                else
-                    break;
+                num *= 10;
+                ++strpos;
+                continue;
             }
-            i--;
+            else
+            {
+                pushNum(numStack, num);
+                num = 0;
+            }
             //push it into stack
-            numbers.push(num);
         }
         else if (c == '(')
         {
             //push it to operators stack
-            operations.push(c);
+            push(operations, c);
         }
         //Closed brace, evaluate the entire brace
         else if (c == ')')
         {
-            while (operations.peek() != '(')
+            while (Top(operations) != '(')
             {
-                int output = performOperation(numbers, operations);
+                int output = performOperation(numStack, operations);
                 //push it back to stack
-                numbers.push(output);
+                pushNum(numStack, output);
             }
-            operations.pop();
+            pop(operations);
         }
         // current character is operator
         else if (isOperator(c))
@@ -77,24 +102,25 @@ int InfixEvaluation(const char *infix)
             //the current operator can be placed in stack
             // 2. else keep popping operator from stack and perform the operation in  numbers stack till
             //either stack is not empty or current operator has higher precedence than operator on top of the stack
-            while (!operations.isEmpty() && op_preced(c) <= op_preced(operations.peek()))
+            while (!isEmpty(operations) && op_preced(c) <= op_preced(Top(operations)))
             {
-                int output = performOperation(numbers, operations);
+                int output = performOperation(numStack, operations);
                 //push it back to stack
-                numbers.push(output);
+                pushNum(numStack, output);
             }
             //now push the current operator to stack
-            operations.push(c);
+            push(operations, c);
         }
+        ++strpos;
     }
     //If here means entire expression has been processed,
     //Perform the remaining operations in stack to the numbers stack
 
-    while (!operations.isEmpty())
+    while (!isEmpty(operations))
     {
-        int output = performOperation(numbers, operations);
+        int output = performOperation(numStack, operations);
         //push it back to stack
-        numbers.push(output);
+        pushNum(numStack, output);
     }
-    return numbers.pop();
+    return popNum(numStack);
 }
