@@ -3,34 +3,34 @@
 #include <stdio.h>
 #include <string.h>
 
-int top = -1;
+int numTop = -1;
 int numstackSize = 32;
-void pushNum(char *stack, int value)
+void pushNum(int *stack, int value)
 {
-    stack[++top] = value;
+    stack[++numTop] = value;
 }
-int popNum(char *stack)
+int popNum(int *stack)
 {
-    return stack[top--];
+    return stack[numTop--];
 }
-int topNum(const char *stack)
+int TopNum(int *stack)
 {
-    return stack[top];
+    return stack[numTop];
 }
-int isEmptyNum(char *stack)
+int isEmptyNum(int *stack)
 {
-    return top == -1;
+    return numTop == -1;
 }
-int isFullNum(char *stack)
+int isFullNum(int *stack)
 {
-    return top == numstackSize - 1;
+    return numTop == numstackSize - 1;
 }
 
 int performOperation(int *numstack, char *operations)
 {
     int a = popNum(numstack);
     int b = popNum(numstack);
-    char operation = pop(operation);
+    char operation = pop(operations);
     switch (operation)
     {
     case '+':
@@ -64,9 +64,9 @@ int InfixEvaluation(const char *infix)
         if (is_ident(c))
         {
             //Entry is Digit, it could be greater than one digit number
-            num = num * 10 + (c - '0');
+            num = num + (c - '0');
 
-            if (is_ident(c))
+            if (is_ident(*(strpos + 1)))
             {
                 num *= 10;
                 ++strpos;
@@ -74,10 +74,10 @@ int InfixEvaluation(const char *infix)
             }
             else
             {
+                //push it into stack
                 pushNum(numStack, num);
                 num = 0;
             }
-            //push it into stack
         }
         else if (c == '(')
         {
@@ -96,7 +96,7 @@ int InfixEvaluation(const char *infix)
             pop(operations);
         }
         // current character is operator
-        else if (isOperator(c))
+        else if (is_operator(c))
         {
             //1. If current operator has higher precedence than operator on top of the stack,
             //the current operator can be placed in stack
