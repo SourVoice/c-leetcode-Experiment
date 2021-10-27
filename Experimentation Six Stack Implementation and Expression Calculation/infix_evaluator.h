@@ -124,13 +124,3 @@ int InfixEvaluation(const char *infix)
     }
     return popNum(numStack);
 }
-int main()
-{
-    char *input = "12+(256*7-1)-10", *output;
-    printf("input:%s\n", input);
-    if (input)
-    {
-        printf("result:%d", InfixEvaluation(input));
-    }
-    return 0;
-}
