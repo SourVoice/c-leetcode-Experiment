@@ -1,6 +1,5 @@
 #ifndef STACK_H
 #define STACK_H
-#endif
 int top = -1;
 int size = 32;
 void push(char *stack, char data)
@@ -23,3 +22,4 @@ int isFull(char *stack)
 {
     return top == size - 1;
 }
+#endif

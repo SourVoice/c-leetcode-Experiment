@@ -1,33 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-#define op_left_assoc(c) (c == '+' || c == '-' || c == '/' || c == '*' || c == '%') /*左结合*/
-#define is_operator(c) (c == '+' || c == '-' || c == '/' || c == '*' || c == '!' || c == '%' || c == '=')
-#define is_function(c) (c >= 'A' && c <= 'Z')
-#define is_ident(c) ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z'))
-#define false 0
-#define true 1
-/*优先级判断*/
-int op_preced(const char c)
-{
-    switch (c)
-    {
-    case '!':
-        return 4;
-    case '*':
-    case '/':
-    case '%':
-        return 3;
-    case '+':
-    case '-':
-        return 2;
-    case '=':
-        return 1;
-    }
-    //若输入不是运算符
-    return 0;
-}
-
+#include "judgeFunction.h"
 int shunting_yard(const char *input, char *output)
 {
     const char *strpos = input, *strend = input + strlen(input);
@@ -207,7 +180,7 @@ int shunting_yard(const char *input, char *output)
     return true;
 }
 
-int postfixEvaluator(const char *postfix)
+int postfixPreformOperation(const char *postfix)
 {
     const char *strpos = postfix, *strend = postfix + strlen(postfix);
     int numstack[128];
@@ -260,4 +233,12 @@ int postfixEvaluator(const char *postfix)
         ++strpos;
     }
     return numstack[0];
+}
+int postfixEvaluator(const char *input)
+{
+    int result = 0;
+    char *output;
+    shunting_yard(input, output);
+    result = postfixPreformOperation(output);
+    return result;
 }

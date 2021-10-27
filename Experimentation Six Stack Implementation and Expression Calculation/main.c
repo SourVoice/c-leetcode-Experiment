@@ -1,11 +1,14 @@
 #include "postfix_evaluator.h"
+#include "prefix_evaluator.h"
+#include "infix_evaluator.h"
 int main()
 {
     char *input = "12+(256*7-1)-10", *output;
     printf("input:%s\n", input);
-    if (shunting_yard(input, output))
+    if (input)
     {
-        printf("output:%s\n", output);
-        printf("result:%d", postfixEvaluator(output));
+        printf("postfix evaluator's result:%d\n", postfixEvaluator(input));
+        printf("prefix evaluator's result:%d\n", prefixEvaculator(input));
+        printf("intix evaluator's result:%d", InfixEvaluation(input));
     }
 }

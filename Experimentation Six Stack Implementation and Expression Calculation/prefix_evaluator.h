@@ -50,6 +50,7 @@ void reverse(const char *input, char *output)
 	}
 	*outpos = '\0';
 }
+//turn infix to prefix and put it in output
 int infix_to_prefix(const char *infix, char *output)
 {
 	int i = 0, j = 0;
@@ -158,7 +159,7 @@ int infix_to_prefix(const char *infix, char *output)
 	printf("EQUIVALENT PREFIX NOTATION : %s \n", output);
 }
 
-int prefixEvaluator(const char *prefix)
+int prefixPerformOperation(const char *prefix)
 {
 	char *output = (char *)malloc(sizeof(prefix));
 	reverse(prefix, output);
@@ -214,14 +215,11 @@ int prefixEvaluator(const char *prefix)
 	}
 	return numstack[0];
 }
-int main()
+int prefixEvaculator(const char *input)
 {
-	char *input = "12+(256*7-1)-10", *output;
-	printf("input:%s\n", input);
-	if (infix_to_prefix(input, output))
-	{
-		printf("output:%s\n", output);
-		printf("result:%d", prefixEvaluator(output));
-	}
-	return 0;
+	int result = 0;
+	char *output;
+	infix_to_prefix(input, output);
+	result = prefixPerformOperation(output);
+	return result;
 }

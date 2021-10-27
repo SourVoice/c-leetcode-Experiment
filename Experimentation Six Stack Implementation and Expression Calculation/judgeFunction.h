@@ -1,3 +1,5 @@
+#ifndef JUDGE_FUNCTION_H
+#define JUDGE_FUNCTION_H
 
 #define op_left_assoc(c) (c == '+' || c == '-' || c == '/' || c == '*' || c == '%') /*左结合*/
 #define is_operator(c) (c == '+' || c == '-' || c == '/' || c == '*' || c == '!' || c == '%' || c == '=')
@@ -31,3 +33,4 @@ int op_preced(const char c)
     //若输入不是运算符
     return 0;
 }
+#endif
