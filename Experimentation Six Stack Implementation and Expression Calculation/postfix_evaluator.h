@@ -239,6 +239,7 @@ int postfixEvaluator(const char *input)
     int result = 0;
     char *output;
     shunting_yard(input, output);
+    printf("postfix: %s \n", output);
     result = postfixPreformOperation(output);
     return result;
 }

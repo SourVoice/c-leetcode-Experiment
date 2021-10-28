@@ -54,15 +54,15 @@ void reverse(const char *input, char *output)
 int infix_to_prefix(const char *infix, char *output)
 {
 	int i = 0, j = 0;
-	char *input = (char *)malloc(sizeof(infix)), c;
-	strcpy(input, infix);
-	/*reverse*/
-	char *reinfix = (char *)malloc(2 * sizeof(infix));
-	reverse(input, reinfix);
+	char c;
+	//reverse
+	char *reinfix;
+	// = (char *)malloc(2 * sizeof(infix));
+	reverse(infix, reinfix);
 	// Reverse the infix expression
-	strcpy(input, reinfix);
-	char *strpos = input;
-	char stack[32], *prefix = (char *)malloc(sizeof(reinfix)); //stack for operator
+	char *strpos = reinfix;
+	char stack[32]; //stack for operator
+	char *prefix = (char *)malloc(sizeof(reinfix));
 	while (*strpos != '\0')
 	{
 		c = *strpos;
@@ -156,7 +156,6 @@ int infix_to_prefix(const char *infix, char *output)
 	prefix[j] = '\0';
 	// Reverse the final string before output
 	reverse(prefix, output);
-	printf("EQUIVALENT PREFIX NOTATION : %s \n", output);
 }
 
 int prefixPerformOperation(const char *prefix)
@@ -220,6 +219,7 @@ int prefixEvaculator(const char *input)
 	int result = 0;
 	char *output;
 	infix_to_prefix(input, output);
+	printf("EQUIVALENT PREFIX NOTATION : %s \n", output);
 	result = prefixPerformOperation(output);
 	return result;
 }
