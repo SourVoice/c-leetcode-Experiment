@@ -7,11 +7,11 @@
       "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe",
       "args": [
         "-g",
+        "-fexec-charset=GBK", // 处理mingw中文编码问题
+        "-finput-charset=UTF-8", // 处理mingw中文编码问题
         "${file}",
         "-o",
-        "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe",
-        "-fexec-charset=GBK" // 处理mingw中文编码问题
-        // "-finput-charset=UTF-8" // 处理mingw中文编码问题
+        "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
