@@ -140,7 +140,7 @@ int MultSMatrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
     }
     return 1;
 }
-int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix Q)
+int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
 {
     return 1;
 }
@@ -193,6 +193,7 @@ void displayMatrix(TsMatrix m) //输出完整的稀疏矩阵
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 void displayTriple(TsMatrix m) //输出压缩后的稀疏矩阵
