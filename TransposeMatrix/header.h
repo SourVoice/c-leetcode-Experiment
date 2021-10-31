@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAXSIZE 1250000
+#define MAXSIZE 12500
 #define MAXRC 250
 typedef struct
 {
@@ -21,32 +21,41 @@ typedef struct
 } RLSMatrix;
 typedef struct
 {
-    TsMatrix MatrixNum[100];
+    TsMatrix *MatrixNum[100];
 } MatrixTable;
-int TransposeSMatrixA(TsMatrix M, TsMatrix &T)
+int TransposeSMatrixA(TsMatrix M, TsMatrix *T)
 //M转置为T(一般转置)
 {
     int p, q, col;
-    T.mu = M.nu;
-    T.nu = M.mu; //行列相互交换
-    T.tu = M.tu;
-    if (T.tu)
+    T->mu = M.nu;
+    T->nu = M.mu; //行列相互交换
+    T->tu = M.tu;
+    if (T->tu)
     {
         q = 1;
         for (col = 1; col <= M.nu; col++)
         {
-            for (p = 1; q <= M.mu; ++p)
+            int first = 0;
+            for (p = 1; p <= M.tu; ++p)
             {
-                T.data[q].j = M.data[p].i;
-                T.data[q].i = M.data[p].j;
-                T.data[q].data = M.data[p].data;
-                ++q;
+                if (M.data[p].j == col)
+                {
+                    T->data[q].j = M.data[p].i;
+                    T->data[q].i = M.data[p].j;
+                    T->data[q].data = M.data[p].data;
+                    if (!first)
+                    {
+                        T->rpos[T->data[q].i] = q;
+                        first = 1;
+                    }
+                    ++q;
+                }
             }
         }
     }
     return 1;
 }
-int FastTransposeSMatrix(TsMatrix M, TsMatrix &T)
+int FastTransposeSMatrix(TsMatrix M, TsMatrix T)
 //fast transpos
 {
     int col, p, q, t;
@@ -78,14 +87,14 @@ int FastTransposeSMatrix(TsMatrix M, TsMatrix &T)
     }
     return 1;
 }
-int MultSMatrix(TsMatrix M, TsMatrix N, TsMatrix &Q)
+int MultSMatrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
 {
     int arow, brow, p, q, t, ctemp[30], l, ccol, tp;
     if (M.nu != N.mu)
         return 0;
-    Q.mu = M.mu;
-    Q.nu = N.nu;
-    Q.tu = 0;
+    Q->mu = M.mu;
+    Q->nu = N.nu;
+    Q->tu = 0;
     if (M.mu * N.nu != 0)
     {
         for (arow = 1; arow <= M.mu; ++arow)
@@ -94,7 +103,7 @@ int MultSMatrix(TsMatrix M, TsMatrix N, TsMatrix &Q)
             {
                 ctemp[l] = 0; //累加器
             }
-            Q.rpos[arow] = Q.tu + 1;
+            Q->rpos[arow] = Q->tu + 1;
             if (arow < M.mu)
                 tp = M.rpos[arow + 1];
             else
@@ -116,41 +125,82 @@ int MultSMatrix(TsMatrix M, TsMatrix N, TsMatrix &Q)
                     ctemp[ccol] += M.data[p].data * N.data[q].data;
                 }
             }
-            for (ccol = 1; ccol <= Q.nu; ccol++) //压缩行
+            for (ccol = 1; ccol <= Q->nu; ccol++) //压缩行
             {
                 if (ctemp[ccol])
                 {
-                    if (++Q.tu > MAXSIZE)
+                    if (++Q->tu > MAXSIZE)
                         return 0;
-                    Q.data[Q.tu] = {arow, ccol, ctemp[ccol]};
+                    Q->data[Q->tu].i = arow;
+                    Q->data[Q->tu].j = ccol;
+                    Q->data[Q->tu].data = ctemp[ccol];
                 }
             }
         }
     }
     return 1;
 }
-int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix &Q)
+int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix Q)
 {
     return 1;
 }
-TsMatrix creatMaxtrix(int m, int n)
+TsMatrix *creatMaxtrix(int m, int n)
 {
     int elem = 0;
-    TsMatrix M;
-    M.mu = m;
-    M.tu = n;
-    M.tu = 0;
+    TsMatrix *M;
+    M = (TsMatrix *)malloc(sizeof(TsMatrix));
+    M->mu = m;
+    M->nu = n;
+    M->tu = 0;
     for (int i = 1; i <= m; i++)
     {
+        int first = 0;
         for (int j = 1; j <= n; j++)
         {
             scanf("%d", &elem);
             if (elem)
             {
-                M.tu++;
-                M.data[M.tu] = {m, n, elem};
+                M->tu++;
+                M->data[M->tu].i = i;
+                M->data[M->tu].j = j;
+                M->data[M->tu].data = elem;
+                if (!first)
+                {
+                    M->rpos[i] = M->tu;
+                    first = 1;
+                }
             }
         }
     }
     return M;
+}
+void displayMatrix(TsMatrix m) //输出完整的稀疏矩阵
+{
+    int i, j, k = 1;
+    for (i = 1; i <= m.mu; i++)
+    {
+        for (j = 1; j <= m.nu; j++)
+        {
+            if (m.data[k].i == i && m.data[k].j == j)
+            {
+                printf("%d ", m.data[k].data);
+                k++;
+            }
+            else
+            {
+                printf("0 ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+void displayTriple(TsMatrix m) //输出压缩后的稀疏矩阵
+{
+    int i;
+    for (i = 1; i <= m.tu; i++)
+    {
+        printf("%d %d %d\n", m.data[i].i, m.data[i].j, m.data[i].data);
+    }
+    printf("\n");
 }
