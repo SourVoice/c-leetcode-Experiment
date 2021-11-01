@@ -159,7 +159,7 @@ int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
     int p = 1, q = 1;
     int k = 1;
     int row[MAXSIZE] = {0}; //to record the row's nums
-    while (p < M.tu && q < N.tu)
+    while (p <= M.tu && q <= N.tu)
     {
         if (M.data[p].i == N.data[q].i)
         {
@@ -214,7 +214,7 @@ int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
                 q++;
             }
         }
-        else if (M.data[p].j < N.data[q].j)
+        else if (M.data[p].i < N.data[q].i)
         {
             Q->data[k].i = M.data[p].i;
             Q->data[k].j = M.data[p].j;
@@ -229,7 +229,7 @@ int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
             p++;
             k++;
         }
-        else if (M.data[p].j > N.data[q].j)
+        else if (M.data[p].i > N.data[q].i)
         {
             Q->data[k].i = N.data[q].i;
             Q->data[k].j = N.data[q].j;
