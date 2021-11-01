@@ -35,7 +35,7 @@ int TransposeSMatrixA(TsMatrix M, TsMatrix *T)
         q = 1;
         for (col = 1; col <= M.nu; col++)
         {
-            int first = 0;
+            int first = 0; //record weather the elem is the first appear in T
             for (p = 1; p <= M.tu; ++p)
             {
                 if (M.data[p].j == col)
@@ -43,11 +43,13 @@ int TransposeSMatrixA(TsMatrix M, TsMatrix *T)
                     T->data[q].j = M.data[p].i;
                     T->data[q].i = M.data[p].j;
                     T->data[q].data = M.data[p].data;
+                    //set the rpos of the T
                     if (!first)
                     {
                         T->rpos[T->data[q].i] = q;
                         first = 1;
                     }
+                    //set the rpos of the T
                     ++q;
                 }
             }
@@ -55,16 +57,17 @@ int TransposeSMatrixA(TsMatrix M, TsMatrix *T)
     }
     return 1;
 }
-int FastTransposeSMatrix(TsMatrix M, TsMatrix T)
+int FastTransposeSMatrix(TsMatrix M, TsMatrix *T)
 //fast transpos
 {
     int col, p, q, t;
     int num[20], cpot[20];
 
-    T.mu = M.nu;
-    T.nu = M.mu; //行列相互交换
-    T.tu = M.tu;
-    if (T.tu)
+    T->mu = M.nu;
+    T->nu = M.mu; //行列相互交换
+    T->tu = M.tu;
+    int row[MAXSIZE] = {0}; //to record the row's nums
+    if (T->tu)
     {
         for (t = 1; t <= M.tu; ++t)
         {
@@ -79,9 +82,16 @@ int FastTransposeSMatrix(TsMatrix M, TsMatrix T)
         {
             col = M.data[q].j;
             q = cpot[col];
-            T.data[q].i = M.data[p].j;
-            T.data[q].j = M.data[p].i;
-            T.data[q].data = M.data[p].data;
+            T->data[q].i = M.data[p].j;
+            T->data[q].j = M.data[p].i;
+            T->data[q].data = M.data[p].data;
+            //
+            row[T->data[q].i]++;
+            if (row[T->data[q].i] == 1)
+            {
+                T->rpos[T->data[q].i] = q;
+            }
+            //
             ++cpot[col];
         }
     }
@@ -142,6 +152,130 @@ int MultSMatrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
 }
 int AddMaxtrix(TsMatrix M, TsMatrix N, TsMatrix *Q)
 {
+    if (M.mu != N.mu || M.nu != N.nu)
+        return 0;
+    Q->mu = M.mu;
+    Q->nu = M.nu;
+    int p = 1, q = 1;
+    int k = 1;
+    int row[MAXSIZE] = {0}; //to record the row's nums
+    while (p < M.tu && q < N.tu)
+    {
+        if (M.data[p].i == N.data[q].i)
+        {
+            if (M.data[p].j < N.data[q].j)
+            {
+                Q->data[k].i = M.data[p].i;
+                Q->data[k].j = M.data[p].j;
+                Q->data[k].data = M.data[p].data;
+                //update the Q's total elems in row
+                row[Q->data[k].i]++;
+                if (row[Q->data[k].i] == 1) //the elem is the first of the row
+                {
+                    Q->rpos[Q->data[k].i] = k;
+                }
+                //update the Q's total elems in row
+                p++;
+                k++;
+            }
+            else if (M.data[p].j > N.data[q].j)
+            {
+                Q->data[k].i = N.data[q].i;
+                Q->data[k].j = N.data[q].j;
+                Q->data[k].data = N.data[q].data;
+                //update the Q's total elems in row
+                row[Q->data[k].i]++;
+                if (row[Q->data[k].i] == 1) //the elem is the first of the row
+                {
+                    Q->rpos[Q->data[k].i] = k;
+                }
+                //update the Q's total elems in row
+                q++;
+                k++;
+            }
+            else if (M.data[p].j == N.data[q].j)
+            {
+                int v = N.data[q].data + M.data[p].data;
+                if (v)
+                {
+                    Q->data[k].i = N.data[q].i;
+                    Q->data[k].j = N.data[q].j;
+                    Q->data[k].data = v;
+                    //update the Q's total elems in row
+                    row[Q->data[k].i]++;
+                    if (row[Q->data[k].i] == 1) //the elem is the first of the row
+                    {
+                        Q->rpos[Q->data[k].i] = k;
+                    }
+                    //update the Q's total elems in row
+                    k++;
+                }
+                p++;
+                q++;
+            }
+        }
+        else if (M.data[p].j < N.data[q].j)
+        {
+            Q->data[k].i = M.data[p].i;
+            Q->data[k].j = M.data[p].j;
+            Q->data[k].data = M.data[p].data;
+            //update the Q's total elems in row
+            row[Q->data[k].i]++;
+            if (row[Q->data[k].i] == 1) //the elem is the first of the row
+            {
+                Q->rpos[Q->data[k].i] = k;
+            }
+            //update the Q's total elems in row
+            p++;
+            k++;
+        }
+        else if (M.data[p].j > N.data[q].j)
+        {
+            Q->data[k].i = N.data[q].i;
+            Q->data[k].j = N.data[q].j;
+            Q->data[k].data = N.data[q].data;
+            //update the Q's total elems in row
+            row[Q->data[k].i]++;
+            if (row[Q->data[k].i] == 1) //the elem is the first of the row
+            {
+                Q->rpos[Q->data[k].i] = k;
+            }
+            //update the Q's total elems in row
+            q++;
+            k++;
+        }
+    }
+    while (q < N.tu)
+    {
+        Q->data[k].i = N.data[q].i;
+        Q->data[k].j = N.data[q].j;
+        Q->data[k].data = N.data[q].data;
+        //update the Q's total elems in row
+        row[Q->data[k].i]++;
+        if (row[Q->data[k].i] == 1) //the elem is the first of the row
+        {
+            Q->rpos[Q->data[k].i] = k;
+        }
+        //update the Q's total elems in row
+        k++;
+        q++;
+    }
+    while (p < N.tu)
+    {
+        Q->data[k].i = N.data[p].i;
+        Q->data[k].j = N.data[p].j;
+        Q->data[k].data = N.data[p].data;
+        //update the Q's total elems in row
+        row[Q->data[k].i]++;
+        if (row[Q->data[k].i] == 1) //the elem is the first of the row
+        {
+            Q->rpos[Q->data[k].i] = k;
+        }
+        //update the Q's total elems in row
+        k++;
+        p++;
+    }
+    Q->tu = k;
     return 1;
 }
 TsMatrix *creatMaxtrix(int m, int n)
