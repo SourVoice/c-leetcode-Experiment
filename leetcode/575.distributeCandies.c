@@ -1,54 +1,34 @@
 #include <stdio.h>
-//超时
+int cmp(const void *a, const void *b)
+{
+    return *(int *)a - *(int *)b;
+}
+
 int distributeCandies(int *candyType, int candyTypeSize)
 {
-    int selectNum = candyTypeSize / 2;
-    int type[100001] = {0};
-    for (int i = 0; i < candyTypeSize; i++)
-    { //统计频率
-        type[candyType[i]]++;
-    }
-    int len = 100001;
-    for (int i = 0; i < len - 1; i++)
+    int sum = candyTypeSize, type = 1;
+    qsort(candyType, candyTypeSize, sizeof(int), cmp);
+    for (int i = 1; i < candyTypeSize; i++) //排序后两两相邻比较,找到所有不同的糖
     {
-        int min = i;
-        for (int j = i + 1; j < len; j++)
+        if (candyType[i] != candyType[i - 1])
         {
-            if (type[j] < type[min])
-            {
-                min = j;
-            }
-        }
-        int tmp = type[i];
-        type[i] = type[min];
-        type[min] = tmp;
-    }
-    int count = 0;
-    int j = 0;
-    for (; j < len; j++)
-    {
-        if (type[j + 1] != 0)
-            break;
-    }
-    for (int i = j; i < len; i++)
-    {
-        count = i - j;
-        if (count >= selectNum)
-        {
-            return i - j;
-        }
-        if (i + 1 == len && count < selectNum)
-        {
-            return i - j;
+            type++;
         }
     }
-    return 1;
+    if (type >= candyTypeSize / 2) //种类大于总糖数一半,最多为n/2种
+    {
+        return candyTypeSize / 2;
+    }
+    else //种类小于总糖数一半,所有种类都能吃到
+    {
+        return type;
+    }
 }
 int main()
 {
     int a[6] = {1, 1, 2, 2, 3, 3};
     int b[4] = {6, 6, 6, 6};
     int c[10] = {1, 1, 1, 1, 2, 2, 2, 3, 3, 3};
-    int len = 10;
-    printf("%d", distributeCandies(c, len));
+    int len = 6;
+    printf("%d", distributeCandies(a, len));
 }
