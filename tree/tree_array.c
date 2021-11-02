@@ -31,7 +31,7 @@ void insert(TREE_TYPE value)
             current = left_child(current);
         else
         {
-            assert[value != tree[current]]; //检查重复值
+            assert(value != tree[current]); //检查重复值
             current = right_child(current);
         }
         assert(current < ARRAY_SIZE);
@@ -39,7 +39,7 @@ void insert(TREE_TYPE value)
     tree[current] = value;
 }
 /*find*/
-void find(TREE_TYPE value)
+TREE_TYPE *find(TREE_TYPE value)
 {
     int current;
     current = 1; //从根节点开始、
@@ -62,7 +62,7 @@ do_pre_order_traverse(int current, void (*callback)(TREE_TYPE value))
     if (current < ARRAY_SIZE && tree[current] != 0)
     {
         callback(tree[current]);
-        do_pre_order_traverse(left_child(current, callback));
+        do_pre_order_traverse(left_child(current), callback);
         do_pre_order_traverse(right_child(current), callback);
     }
 }
