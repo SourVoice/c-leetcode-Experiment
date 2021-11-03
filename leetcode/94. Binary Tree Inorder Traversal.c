@@ -19,7 +19,7 @@ struct TreeNode
     struct TreeNode *left;
     struct TreeNode *right;
 };
-void inorder(struct TreeNode *root, int *returnSize, int *a) /*中序遍历二叉树*/
+void inorder(struct TreeNode *root, int *returnSize, int *a) /*中序遍历二叉树(递归法)*/
 {
     if (!root)
         return;
@@ -41,6 +41,27 @@ int *inorderTraversal(struct TreeNode *root, int *returnSize)
     memset(a, 0, treesize * sizeof(int));
     *returnSize = 0;
     inorder(root, returnSize, a);
+    return a;
+}
+int *inorderTraversal_Recursive(struct TreeNode *root, int *returnSize) //迭代法
+{
+    int treesize = size(root);
+    int *a = (int *)malloc(treesize * sizeof(int));
+    memset(a, 0, treesize * sizeof(int));
+    *returnSize = 0;
+    struct TreeNode **stack = (struct TreeNode **)malloc(treesize * sizeof(struct TreeNode *));
+    int top = 0;
+    while (root != NULL || top != 0)
+    {
+        while (root != NULL) //模拟递归入栈过程
+        {
+            stack[top++] = root;
+            root = root->left;
+        }
+        root = stack[--top];
+        a[(*returnSize)++] = root->val;
+        root = root->right;
+    }
     return a;
 }
 struct TreeNode *newNode(int val)
