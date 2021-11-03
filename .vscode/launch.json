@@ -10,7 +10,7 @@
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "externalConsole": false,
+      "console": false,
       "MIMode": "gdb",
       "miDebuggerPath": "D://workstation//VSCode_for_c//c_path//mingw64//bin//gdb.exe",
       "preLaunchTask": "gcc", //这里和task.json的label相对应
