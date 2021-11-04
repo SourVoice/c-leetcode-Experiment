@@ -19,9 +19,9 @@ void printInOrder(struct node *tree)
 {
     if (!tree)
         return;
-    printPostOrder(tree->left);
+    printInOrder(tree->left);
     printf("%d ", tree->val);
-    printPostOrder(tree->right);
+    printInOrder(tree->right);
 }
 void printPreOrder(struct node *tree)
 {
@@ -48,13 +48,13 @@ int main()
     root->left->right = newNode(5);
 
     printf("\nPreorder traversal of binary tree is \n");
-    printPreorder(root);
+    printPreOrder(root);
 
     printf("\nInorder traversal of binary tree is \n");
-    printInorder(root);
+    printInOrder(root);
 
     printf("\nPostorder traversal of binary tree is \n");
-    printPostorder(root);
+    printPostOrder(root);
 
     return 0;
 }
