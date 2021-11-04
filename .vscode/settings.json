@@ -5,6 +5,7 @@
     "iostream": "cpp",
     "stdio.h": "c",
     "assert.h": "c",
+    "math.h": "c",
     "initializer_list": "cpp",
     "type_traits": "cpp",
     "xstring": "cpp",
