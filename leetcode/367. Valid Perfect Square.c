@@ -36,9 +36,20 @@ bool isPerfectSquare_EnumerateFactor(int num) //找出一个num的因子,满足i*i=num
     }
     return 0;
 }
-
+bool isPerfectSquare_NewtonIteration(int num) //newton iteration method,牛顿迭代
+{
+    double x = num;
+    double tmp = 1 + x;
+    while (tmp - x > 1e-6)
+    {
+        tmp = x;
+        double res = (x + num / x) / 2;
+        x = res;
+    }
+    return (int)x * (int)x == num;
+}
 int main()
 {
-    printf("%d", isPerfectSquare_Binary(14));
+    printf("%d", isPerfectSquare_NewtonIteration(16));
     return 0;
 }
