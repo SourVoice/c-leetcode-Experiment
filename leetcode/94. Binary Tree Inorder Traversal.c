@@ -13,42 +13,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 struct TreeNode
 {
     int val;
     struct TreeNode *left;
     struct TreeNode *right;
 };
-void inorder(struct TreeNode *root, int *returnSize, int *a) /*中序遍历二叉树(递归法)*/
+void inorderRecursion(struct TreeNode *root, int *returnSize, int *a) /*中序遍历二叉树(递归法)*/
 {
     if (!root)
         return;
-    inorder(root->left, returnSize, a);
-
+    inorderRecursion(root->left, returnSize, a);
     a[(*returnSize)++] = root->val;
-    inorder(root->right, returnSize, a);
+    inorderRecursion(root->right, returnSize, a);
 }
-int size(struct TreeNode *root) /*求二叉树数据个数*/
+int size(struct TreeNode *root) //求二叉树数据个数
 {
     if (!root)
         return 0;
     return size(root->left) + size(root->right) + 1;
 }
-int *inorderTraversal(struct TreeNode *root, int *returnSize)
+int *inorderTraversal(struct TreeNode *root, int *returnSize) //遍厤内容返回a數組
 {
     int treesize = size(root);
     int *a = (int *)malloc(treesize * sizeof(int));
     memset(a, 0, treesize * sizeof(int));
     *returnSize = 0;
-    inorder(root, returnSize, a);
+    inorderRecursion(root, returnSize, a);
     return a;
 }
-int *inorderTraversal_Recursive(struct TreeNode *root, int *returnSize) //迭代法
+int *inorderTraversal_Recursive(struct TreeNode *root, int *returnSize) //迭代法遍歷,返回到數組
 {
     int treesize = size(root);
     int *a = (int *)malloc(treesize * sizeof(int));
     memset(a, 0, treesize * sizeof(int));
     *returnSize = 0;
+
     struct TreeNode **stack = (struct TreeNode **)malloc(treesize * sizeof(struct TreeNode *));
     int top = 0;
     while (root != NULL || top != 0)
@@ -67,20 +68,23 @@ int *inorderTraversal_Recursive(struct TreeNode *root, int *returnSize) //迭代法
 struct TreeNode *newNode(int val)
 {
 
-    struct TreeNode *newNode = (struct TreeNode *)malloc(sizeof(struct TreeNode));
-    newNode->val = val;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
+    struct TreeNode *node = (struct TreeNode *)malloc(sizeof(struct TreeNode));
+    node->val = val;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 int main()
 {
+
+    //init the tree
     struct TreeNode *root = newNode(1);
     root->left = newNode(2);
     root->right = newNode(3);
     root->left->left = newNode(4);
     root->left->right = newNode(5);
+
     int *a;
     int *returnSize;
-    inorderTraversal(root, returnSize);
+    a = inorderTraversal(root, returnSize);
 }
