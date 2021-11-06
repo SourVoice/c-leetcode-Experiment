@@ -15,7 +15,7 @@ struct ListNode
     int val;
     struct ListNode *next;
 };
-bool isPalindrome(struct ListNode *head)
+bool isPalindrome(struct ListNode *head) //¿ìÂıÖ¸Õë·¨
 {
     if (head->next)
         return true;
