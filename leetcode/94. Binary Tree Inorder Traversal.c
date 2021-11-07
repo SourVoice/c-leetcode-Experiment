@@ -10,6 +10,7 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
+//Ç°Ðò±éÀú(µÝ¹é+µü´ú)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
