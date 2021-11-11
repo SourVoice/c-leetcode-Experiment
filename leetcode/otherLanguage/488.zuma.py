@@ -2,6 +2,7 @@ from enum import IntFlag
 import re
 from itertools import product
 from functools import lru_cache
+from collections import deque
 
 
 class Solution:
@@ -71,7 +72,8 @@ class Solution:
                         res, 1 + dfs(updata(board[:i]+hand[j]+board[i:]), hand[:j]+hand[j+1:]))
             return res
 
-        hand = ''.join(filter(lambda x: x in board, hand))  # 合并hand中颜色相同项
+        # ???hand??????????
+        hand = ''.join(filter(lambda x: x in board, hand))
         step = dfs(board, hand)
         if step != float('inf'):
             return step
