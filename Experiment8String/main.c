@@ -56,13 +56,11 @@ int main()
                 // is equal to input word
                 if ((i == n || buffer[i] == '\n' || !isAlpha(buffer[i])) && j == m)
                 {
-                    printf("target word: %s ", word);
-                    printf("Line: %d ", line);
-                    printf("Column: %d ", i - m);
-                    for (int r = i - m - 1; r <= i; r++)
-                    {
-                        printf("%c", buffer[r]);
-                    }
+                    // printf("target word: %s ", word);
+                    printf("Line: %d ", line); //950
+                    // printf("Column: %d  ", i - m);
+                    for (int t = i - m - 2; t < i + 2; t++)
+                        printf("%c", buffer[t]);
                     printf("\n");
                     count[index]++;
                 }
