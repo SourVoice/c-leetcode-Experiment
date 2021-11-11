@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define isAlpha(a) ((a >= 'a' && a <= 'z') || (a <= 'Z' && a >= 'A'))
 int main()
 {
 
     char *wrd[256];
-    char buffer[256];
+    char buffer[10000];
     int n, m, i, j, k = 0, line;
 
     for (int i = 0; i < 256; i++)
@@ -29,7 +30,7 @@ int main()
     line = 0;
     // the following loop the file fp line by line
     // each line is stored in buffer
-    while (fgets(buffer, 256, fp) != NULL)
+    while (fgets(buffer, 10000, fp) != NULL)
     {
 
         i = 0;
@@ -53,11 +54,16 @@ int main()
 
                 // the following condition implies that the current word of buffer
                 // is equal to input word
-                if ((i == n || buffer[i] == ' ' || buffer[i] == '\n') && j == m)
+                if ((i == n || buffer[i] == '\n' || !isAlpha(buffer[i])) && j == m)
                 {
                     printf("target word: %s ", word);
                     printf("Line: %d ", line);
-                    printf("Column: %d\n", i - m);
+                    printf("Column: %d ", i - m);
+                    for (int r = i - m - 1; r <= i; r++)
+                    {
+                        printf("%c", buffer[r]);
+                    }
+                    printf("\n");
                     count[index]++;
                 }
             }
@@ -68,6 +74,8 @@ int main()
                 ++i;
             }
             ++i;
+            while (!isAlpha(buffer[i]))
+                ++i;
         }
 
         ++line;
