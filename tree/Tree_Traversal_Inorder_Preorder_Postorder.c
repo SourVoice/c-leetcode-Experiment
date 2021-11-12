@@ -35,7 +35,7 @@ void LayerOrder(struct node *root) //层序遍历
     {
     }
 }
-//====================================recursion递归法===================================================
+//======================================recursion递归法===================================================
 void printInOrder(struct node *root)
 {
     if (!root)
@@ -60,8 +60,26 @@ void printPostOrder(struct node *root)
     printPostOrder(root->right);
     printf("%d ", root->val);
 }
-//=======================================interative迭代法==============================================
-void printinorderInterative(struct node *root)
+//======================================interative迭代法==============================================
+void printPreOrderInterative(struct node *root)
+{
+    int treesize = size(root);
+    struct node **stack = (struct node **)malloc(sizeof(struct node *) * treesize);
+    int top = 0;
+    while (root != NULL || top != 0)
+    {
+        while (root != NULL)
+        {
+            printf("%d ", root->val);
+            stack[top++] = root;
+            root = root->left;
+        }
+        root = stack[--top];
+        root = root->right;
+    }
+}
+
+void printInOrderInterative(struct node *root)
 {
     int treesize = size(root);
     struct node **stack = (struct node **)malloc(sizeof(struct node *) * treesize);
@@ -78,11 +96,36 @@ void printinorderInterative(struct node *root)
         root = root->right;
     }
 }
-void printpreorderInterative(struct node *root)
+
+void printPostOrderInterative(struct node *root)
 {
     int treesize = size(root);
-    struct node **stack = (struct node **)malloc(sizoef(struct node *) * treesize);
+    struct TreeNode **stack = (struct TreeNode **)malloc(sizeof(struct TreeNode *) * treesize);
+    struct TreeNode **prev;
     int top = 0;
+    while (root != NULL || top != 0)
+    {
+        if (root != NULL)
+        {
+            stack[top++] = root;
+            root = root->left;
+        }
+        else
+        {
+            root = stack[--top];
+            if (root->right == NULL || root->right == prev)
+            {
+                prev = root;
+                printf("%d ", root->val);
+                root = NULL;
+            }
+            else
+            {
+                stack[top++] = root;
+                root = root->right;
+            }
+        }
+    }
 }
 int main()
 {
@@ -91,6 +134,8 @@ int main()
     root->right = newNode(3);
     root->left->left = newNode(4);
     root->left->right = newNode(5);
+    root->left->right->left = newNode(6);
+    root->left->right->right = newNode(7);
 
     //recursion way
     printf("\nTrabersal a Binary Tree in Recursion Way\n");
@@ -107,9 +152,14 @@ int main()
     //interative way
     printf("\nTrabersal a Binary Tree in Interative Way\n");
 
-    printf("\nInorder traversal of binary tree is \n");
-    printinorderInterative(root);
+    printf("\nPreorder traverasl of binary tree is \n");
+    printPreOrderInterative(root);
 
+    printf("\nInorder traversal of binary tree is \n");
+    printInOrderInterative(root);
+
+    printf("\nPostorder traversal of binary tree is \n");
+    printPostOrderInterative(root);
     return 0;
 }
 /*
@@ -118,6 +168,8 @@ int main()
        2   3
       / \ 
      4   5
+        / \
+       6   7
 由已知先序遍历和中序构造二叉树
 pre:A   B   D   E   G   H   C   F
     r   
