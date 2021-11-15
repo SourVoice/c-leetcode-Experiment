@@ -100,30 +100,27 @@ void printInOrderInterative(struct node *root)
 void printPostOrderInterative(struct node *root)
 {
     int treesize = size(root);
-    struct TreeNode **stack = (struct TreeNode **)malloc(sizeof(struct TreeNode *) * treesize);
-    struct TreeNode **prev;
+    struct node **stack = (struct node **)malloc(sizeof(struct node *) * treesize);
+    struct node **prev;
     int top = 0;
     while (root != NULL || top != 0)
     {
-        if (root != NULL)
+        while (root != NULL)
+        {
+            stack[top++] = root; //push 1   push 2  push 4
+            root = root->left;   //root->val = 2    root->val = 4   root = NULL
+        }
+        root = stack[--top];                             //root->val = 4
+        if (root->right == NULL || root->right == &prev) //root->right=NULL时必然打印||通过prev来判断右子树是否被遍历过,root->right==prev代表父节点的右子树被访问过,无需进行访问,直接打印父节点
+        {
+            prev = &root; //prev = 4
+            printf("%d ", root->val);
+            root = NULL; //避免重复遍历左数进入死循环
+        }
+        else //右子树为被访问过
         {
             stack[top++] = root;
-            root = root->left;
-        }
-        else
-        {
-            root = stack[--top];
-            if (root->right == NULL || root->right == prev)
-            {
-                prev = root;
-                printf("%d ", root->val);
-                root = NULL;
-            }
-            else
-            {
-                stack[top++] = root;
-                root = root->right;
-            }
+            root = root->right;
         }
     }
 }
