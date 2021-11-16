@@ -128,7 +128,6 @@ void printLevelOrderInterative(struct node *root)
     SqQueue *queue = initQueue();
     if (root)
         insertQueue(queue, root);
-    depth++;
     while (!isEmpty(queue))
     {
         int n = queueLength(queue); //在进入下一层前计算距离
@@ -138,8 +137,8 @@ void printLevelOrderInterative(struct node *root)
         {
             struct node *tmpNode = frontQueue(queue);
             deQueue(queue);
-            printf("%d ", tmpNode->val);
-            // res[depth][i] = tmpNode->val;
+            // printf("%d ", tmpNode->val);
+            res[depth][i] = tmpNode->val;
             if (tmpNode->left)
             {
                 insertQueue(queue, tmpNode->left);
@@ -149,17 +148,17 @@ void printLevelOrderInterative(struct node *root)
                 insertQueue(queue, tmpNode->right);
             }
         }
-        printf("\n");
+        // printf("\n");
         depth++;
     }
-    //print res in level order
-    // for (int i = 0; i < (*returnDepth); i++)
-    // {
-    //     for (int j = 0; j < levelSize[i]; j++)
-    //     {
-    //         printf("%d ", res[i][j]);
-    //     }
-    // }
+    // print res in level order
+    for (int i = 0; i < (*returnDepth); i++)
+    {
+        for (int j = 0; j < levelSize[i]; j++)
+        {
+            printf("%d ", res[i][j]);
+        }
+    }
 }
 
 int main()
