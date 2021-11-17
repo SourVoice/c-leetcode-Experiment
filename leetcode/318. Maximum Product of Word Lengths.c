@@ -1,5 +1,6 @@
 /*318. 最大单词长度乘积*/
 /*暴力法*/
+#include <string.h>
 int maxProduct(char **words, int wordsSize)
 {
     int *rec = (int *)malloc(sizeof(int) * 26);
@@ -51,4 +52,20 @@ int maxProduct(char **words, int wordsSize)
         }
     }
     return multiRes;
+}
+//build-in library法
+int maxProduct(char **words, int wordsSize)
+{
+    int ans = 0;
+    for (int i = 0; i < wordsSize; i++)
+    {
+        for (int j = i + 1; j < wordsSize; j++)
+        {
+            if (strpbrk(words[i], words[j]) == NULL)
+            {
+                ans = fmax(ans, strlen(words[i]) * strlen(words[j]));
+            }
+        }
+    }
+    return ans;
 }
