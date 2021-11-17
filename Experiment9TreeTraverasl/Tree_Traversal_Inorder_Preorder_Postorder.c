@@ -17,6 +17,16 @@ int size(struct node *root) //get size of the tree
         return 0;
     return size(root->left) + size(root->right) + 1;
 }
+void getDepth(struct node *root, int depth, int *returnDepth) //get depth of the tree
+{
+    if (!root)
+    {
+        *returnDepth = *returnDepth < depth ? depth : *returnDepth;
+        return;
+    }
+    getDepth(root->left, depth + 1, returnDepth);
+    getDepth(root->right, depth + 1, returnDepth);
+}
 //======================================recursion�ݹ鷨===================================================
 void printInOrder(struct node *root)
 {
@@ -106,16 +116,7 @@ void printPostOrderInterative(struct node *root)
         }
     }
 }
-void getDepth(struct node *root, int depth, int *returnDepth)
-{
-    if (!root)
-    {
-        *returnDepth = *returnDepth < depth ? depth : *returnDepth;
-        return;
-    }
-    getDepth(root->left, depth + 1, returnDepth);
-    getDepth(root->right, depth + 1, returnDepth);
-}
+//======================================inLevelOrder(queue simulator============================================
 void printLevelOrderInterative(struct node *root)
 {
     int *returnDepth = (int *)malloc(sizeof(int));
@@ -182,7 +183,7 @@ int main()
     printPostOrder(root);
 
     //interative way
-    printf("\nTrabersal a Binary Tree in Interative Way\n");
+    printf("\n\nTrabersal a Binary Tree in Interative Way\n");
 
     printf("\nPreorder traverasl of binary tree is \n");
     printPreOrderInterative(root);
@@ -194,7 +195,7 @@ int main()
     printPostOrderInterative(root);
 
     //level order to trabersal
-    printf("\nLevelorder traversal of binary tree is \n");
+    printf("\n\nLevelorder traversal of binary tree is \n");
     printLevelOrderInterative(root);
     return 0;
 }
