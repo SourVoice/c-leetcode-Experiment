@@ -1,5 +1,5 @@
 /*397. 整数替换*/
-
+//较为简单的递归法,在long calculate函数中必须将n转换为long型
 #define min(x, y) (x < y ? x : y)
 
 long calculate(long n, long step)
