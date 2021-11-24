@@ -17,9 +17,9 @@ void rescutionForDepth(struct Node *root, int depth, int *returnDepth)
 {
     if (!root)
     {
-        *returnDepth = *returnDepth > depth ? *returnDepth : depth;
         return;
     }
+    *returnDepth = *returnDepth > depth ? *returnDepth : depth;
     for (int i = 0; i < root->numChildren; i++)
     {
         rescutionForDepth(root->children[i], depth + 1, returnDepth);
@@ -30,7 +30,7 @@ int maxDepth(struct Node *root)
 {
     int *returnDpeth = (int *)malloc(sizeof(int));
     *returnDpeth = 0;
-    int depth = 0;
+    int depth = 1;
     rescutionForDepth(root, depth, returnDpeth);
     return *returnDpeth;
 }
