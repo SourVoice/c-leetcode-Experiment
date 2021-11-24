@@ -133,7 +133,7 @@ struct MinHeap *creatAndSetMinHeap(char *data, int *freq, int size)
     buildMinHeap(minHeap);
     return minHeap;
 }
-
+//build a huffmantree algorithm
 struct MinHeapNode *buildHuffmanTree(char *data, int *freq, int size)
 {
     struct MinHeapNode *left, *right, *mergeToTheTop;
@@ -177,4 +177,13 @@ void buildAndDisplayCodes(struct MinHeapNode *root, int *storeCodes, int top)
         }
         printf("\n");
     }
+}
+//build a huffmantree
+//then print its codes
+void HuffmanCodes(char *data, int *freq, int size)
+{
+    struct MinHeapNode *root = buildHuffmanTree(data, freq, size);
+    int *storecodes = (int *)malloc(sizeof(int) * 16);
+    int top = 0;
+    buildAndDisplayCodes(root, storecodes, top);
 }
