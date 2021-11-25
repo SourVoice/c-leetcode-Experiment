@@ -1,28 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-//最小堆元素的结构
-struct MinHeapNode
-{
-    char data;         //characters need to be code
-    unsigned int freq; //freqency of data;
-
-    struct MinHeapNode *left;
-    struct MinHeapNode *right;
-};
-
-//最小堆(用最小堆构造森林)
-struct MinHeap
-{
-    //maintain the size of the MinHeap(or record the count fo the MinHeapNode)
-    unsigned int size;
-
-    //最小堆的容量
-    unsigned int capacity;
-
-    //point to the MinHeapNodes which in MinHeap
-    struct MinHeapNode **arr;
-};
+#include "HuffmanByMinHeap.h"
+#ifndef BUILD_HUFFMAN_TREE_BY_HEAP
+#define BUILD_HUFFMAN_TREE_BY_HEAP
 //creat the MinHeap
 //and update the MinHeap's Node
 struct MinHeapNode *newMinHeapNode(char data, unsigned int frequency)
@@ -103,6 +83,7 @@ struct MinHeapNode *exactMin(struct MinHeap *theMinHeap)
 
     return temp;
 }
+//insert elems to MinHeap
 void insertMinHeap(struct MinHeap *minHeap, struct MinHeapNode *minHeapNode)
 {
     minHeap->size++;
@@ -118,13 +99,13 @@ void insertMinHeap(struct MinHeap *minHeap, struct MinHeapNode *minHeapNode)
 void buildMinHeap(struct MinHeap *minHeap)
 {
     int n = minHeap->size - 1;
-    for (int i = (n - 1) / 2; i >= 0; i--)
+    for (int i = (n - 1) / 2; i >= 0; i--) //build from the last's elem's parent't node
     {
         minHeapify(minHeap, i);
     }
 }
 //inject elems(输入元素)
-struct MinHeap *creatAndSetMinHeap(char *data, int *freq, int size)
+struct MinHeap *setElemsMinHeap(char *data, int *freq, int size)
 {
     struct MinHeap *minHeap = initMinHeap(size);
     for (int i = 0; i < size; i++)
@@ -137,7 +118,7 @@ struct MinHeap *creatAndSetMinHeap(char *data, int *freq, int size)
 struct MinHeapNode *buildHuffmanTree(char *data, int *freq, int size)
 {
     struct MinHeapNode *left, *right, *mergeToTheTop;
-    struct MinHeap *minHeap = creatAndSetMinHeap(data, freq, size);
+    struct MinHeap *minHeap = setElemsMinHeap(data, freq, size);
     while (!isSizeOne(minHeap))
     {
         //step2:
@@ -180,10 +161,12 @@ void buildAndDisplayCodes(struct MinHeapNode *root, int *storeCodes, int top)
 }
 //build a huffmantree
 //then print its codes
-void HuffmanCodes(char *data, int *freq, int size)
+struct MinHeapNode *HuffmanCodes(char *data, int *freq, int size)
 {
     struct MinHeapNode *root = buildHuffmanTree(data, freq, size);
     int *storecodes = (int *)malloc(sizeof(int) * 16);
     int top = 0;
     buildAndDisplayCodes(root, storecodes, top);
+    return root;
 }
+#endif
