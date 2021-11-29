@@ -1,15 +1,17 @@
 /*438. 找到字符串中所有字母异位词*/
 #include <stdlib.h>
+#include <string.h>
 
 int *findAnagrams(char *s, char *p, int *returnSize)
 {
 
-    int SMap[26] = {0};
-    int PMap[26] = {0};
+    int SMap[26] = {0}; //record alpha's count in s str
+    int PMap[26] = {0}; //record alpha's count in P str
     int count = 0;
     int len1 = strlen(s);
     int len2 = strlen(p);
     int len = len1 - len2;
+    //维护一个len2长的窗口
 
     int *res = (int *)calloc(len1 + 1, sizeof(int));
     *returnSize = 0;
