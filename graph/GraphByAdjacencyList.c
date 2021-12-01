@@ -161,7 +161,7 @@ void bfsTheGraph(Graph *graph, int begin)
 
     for (int i = 0; i < graph->vertexNum; i++)
     {
-        visited = 0;
+        visited[i] = 0;
     }
 
     int rear = 0;
@@ -174,13 +174,14 @@ void bfsTheGraph(Graph *graph, int begin)
         s = queue[front++];
         printf("%d ", s);
         AdjacencyListNode *i = graph->arr[s].head;
-        for (; i != NULL; i = i->next)
+        for (; i != NULL;)
         {
             if (!visited[i->v])
             {
                 visited[i->v] = 1;
                 queue[rear++] = i->v;
             }
+            i = i->next;
         }
     }
 }
@@ -205,9 +206,9 @@ int main()
 
     // print the adjacency list representation of the above graph
     printAdjacencyList(graph);
-    printf("\nAnd we remove the vertex you have just added:\n");
+    printf("\nAnd we remove the vertex you have just imput:\n");
 
-    removeAnEdge(graph, 2, 3);
+    removeAVertex(graph, 2);
     printAdjacencyList(graph);
 
     // Breadth-first-search of the Graph
