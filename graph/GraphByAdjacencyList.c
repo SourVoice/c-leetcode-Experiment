@@ -11,13 +11,13 @@ typedef struct _AdjacencyListNode // rep the adjacency list's node
 
 typedef struct _AdjacencyList // a struct record the head of each AdjacencyList
 {
-    struct _AdjacencyListNode *head;
+    AdjacencyListNode *head;
 } AdjacencyList;
 
 typedef struct _Graph // the struct of the Graph
 {
-    int vertexNum;              // total num of the vertes
-    struct _AdjacencyList *arr; // record each head of the adjacencyList
+    int vertexNum;      // total num of the vertes
+    AdjacencyList *arr; // record each head of the adjacencyList
 } Graph;
 
 // add new node to the one of the AdjacnecyList
@@ -153,8 +153,36 @@ void printAdjacencyList(Graph *graph)
     }
 }
 // bfs of the graph
-void bfsTheGraph(Graph *Graph)
+void bfsTheGraph(Graph *graph, int begin)
 {
+    int queue[100000] = {0};
+    int *visited = (int *)malloc(sizeof(int) * graph->vertexNum);
+    int s = begin;
+
+    for (int i = 0; i < graph->vertexNum; i++)
+    {
+        visited = 0;
+    }
+
+    int rear = 0;
+    int front = 0;
+    queue[rear++] = s;
+    visited[s] = 1; // mark the point has been pointed
+
+    while (rear != front)
+    {
+        s = queue[front++];
+        printf("%d ", s);
+        AdjacencyListNode *i = graph->arr[s].head;
+        for (; i != NULL; i = i->next)
+        {
+            if (!visited[i->v])
+            {
+                visited[i->v] = 1;
+                queue[rear++] = i->v;
+            }
+        }
+    }
 }
 
 // Driver program to test above functions
@@ -181,6 +209,9 @@ int main()
 
     removeAnEdge(graph, 2, 3);
     printAdjacencyList(graph);
+
+    // Breadth-first-search of the Graph
+    bfsTheGraph(graph, 0);
 
     return 0;
 }
