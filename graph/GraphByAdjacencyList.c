@@ -1,26 +1,26 @@
-//use adjacency list to
-//repensitive a graph
+// use adjacency list to
+// repensitive a graph
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _AdjacencyListNode //rep the adjacency list's node
+typedef struct _AdjacencyListNode // rep the adjacency list's node
 {
-    int v;                           //rep the vertex
+    int v;                           // rep the vertex
     struct _AdjacencyListNode *next; //
 } AdjacencyListNode;
 
-typedef struct _AdjacencyList //a struct record the head of each AdjacencyList
+typedef struct _AdjacencyList // a struct record the head of each AdjacencyList
 {
     struct _AdjacencyListNode *head;
 } AdjacencyList;
 
-typedef struct _Graph //the struct of the Graph
+typedef struct _Graph // the struct of the Graph
 {
-    int vertexNum;              //total num of the vertes
-    struct _AdjacencyList *arr; //record each head of the adjacencyList
+    int vertexNum;              // total num of the vertes
+    struct _AdjacencyList *arr; // record each head of the adjacencyList
 } Graph;
 
-//add new node to the one of the AdjacnecyList
+// add new node to the one of the AdjacnecyList
 AdjacencyListNode *newAdjacencyListNode(int v)
 {
     AdjacencyListNode *newNode = (AdjacencyListNode *)malloc(sizeof(AdjacencyListNode));
@@ -28,41 +28,41 @@ AdjacencyListNode *newAdjacencyListNode(int v)
     newNode->next = NULL;
     return newNode;
 }
-//creat a GRAPH with V vertexs
+// creat a GRAPH with V vertexs
 Graph *createGraph(int V)
 {
     Graph *newGraph = (Graph *)malloc(sizeof(Graph));
     newGraph->vertexNum = V;
 
-    //malloc V size of space for the arr
+    // malloc V size of space for the arr
     newGraph->arr = (AdjacencyList *)malloc(sizeof(AdjacencyList) * V);
 
-    //initial each head of the adjacency
+    // initial each head of the adjacency
     for (int i = 0; i < V; i++)
     {
         newGraph->arr[i].head = NULL;
     }
     return newGraph;
 }
-//add an edge to a undirected graph
-//src rep the begin of the edge and the
-//dest rep the end of the eage
+// add an edge to a undirected graph
+// src rep the begin of the edge and the
+// dest rep the end of the eage
 void addAnEdge(Graph *graph, int src, int dest)
 {
     AdjacencyListNode *newNode = newAdjacencyListNode(dest);
     newNode->next = graph->arr[src].head;
-    graph->arr[src].head = newNode; //let the src point to the dest
+    graph->arr[src].head = newNode; // let the src point to the dest
 
-    //for the graph is a undirected,
-    //we need add dest vertex too
+    // for the graph is a undirected,
+    // we need add dest vertex too
     newNode = newAdjacencyListNode(src);
     newNode->next = graph->arr[dest].head;
     graph->arr[dest].head = newNode;
 }
-//remove the edge from src to dest
+// remove the edge from src to dest
 void removeAnEdge(Graph *graph, int src, int dest)
 {
-    //remove in the src vertex
+    // remove in the src vertex
     AdjacencyListNode **rootp = &graph->arr[src].head;
     AdjacencyListNode *curr = (AdjacencyListNode *)malloc(sizeof(AdjacencyListNode));
     curr = *rootp;
@@ -80,7 +80,7 @@ void removeAnEdge(Graph *graph, int src, int dest)
         rootp = &curr->next;
         curr = curr->next;
     }
-    //remove in the dest vertex
+    // remove in the dest vertex
     rootp = &graph->arr[dest].head;
     curr = *rootp;
     while (curr)
@@ -98,7 +98,7 @@ void removeAnEdge(Graph *graph, int src, int dest)
         curr = curr->next;
     }
 }
-//add an vertex to the graph (without add the edge)
+// add an vertex to the graph (without add the edge)
 void addAVertex(Graph *graph, int v)
 {
     graph->vertexNum++;
@@ -109,8 +109,8 @@ void addAVertex(Graph *graph, int v)
 
     graph->arr[graph->vertexNum].head = newNode;
 }
-//remove a vertex in graph
-//v is the target vertex
+// remove a vertex in graph
+// v is the target vertex
 void removeAVertex(Graph *graph, int targetV)
 {
     for (int i = 1; i < graph->vertexNum; i++)
@@ -136,7 +136,7 @@ void removeAVertex(Graph *graph, int targetV)
     free(graph->arr[targetV].head);
     graph->arr[targetV].head = NULL;
 }
-//print the graph's AdjacencyList
+// print the graph's AdjacencyList
 void printAdjacencyList(Graph *graph)
 {
     for (int v = 0; v < graph->vertexNum; v++)
@@ -152,73 +152,11 @@ void printAdjacencyList(Graph *graph)
         printf("\n");
     }
 }
-//bfs of the graph
-void bfsTheGraph()
+// bfs of the graph
+void bfsTheGraph(Graph *Graph)
 {
-    int front = 0;
-    int rear = 0;
-
-    //Input start node, enqueue it and mark it as visited
-    printf("\nEnter starting node");
-    scanf("%d", &num);
-    visited[num] = 1;
-    queue[rear] = num;
-    rear++;
-
-    //Traverse the graph
-    while (front != rear)
-    {
-        printf("\nQueue is not empty");
-        //Step 1 : Dequeue
-        element = queue[front];
-        front++;
-        //Step 2 : Add popped element to the traversal result
-        printf("\nPushing current node %d into result", element);
-        bfs[counter] = element;
-        counter++;
-        printf("\n%d elements traversed", counter);
-        //Step 3 : Enqueue neighbours of element
-        //3.1 --> if node has an empty adjacency list, exit program because node is isolated
-        if (head[element]->next == NULL)
-        {
-            printf("\n%d is an isolated node\n", element);
-            exit(0);
-        }
-        //3.2 --> if node has a non-empty adjacency list, add its neighbours into the queue
-        else
-        {
-            temp = head[element]->next;
-            printf("\n\nTrying to add neighbours of %d node", element);
-            while (temp != NULL)
-            {
-                current = temp->val;
-                if (visited[current] == 0)
-                {
-                    printf("\n%d node has NOT BEEN VISITED, inserting into queue", current);
-                    queue[rear] = current;
-                    rear++;
-                    visited[current] = 1;
-                    printf("\nFRONT --> %d; REAR --> %d", front, rear);
-                }
-                else
-                {
-                    printf("\n%d node has ALREADY BEEN VISITED", current);
-                }
-                temp = temp->next;
-            }
-        }
-    }
-    printf("\nQueue is empty");
-
-    //Print result of BFS
-    printf("\n------------------BFS-------------------------\n");
-    i = 0;
-    while (i < counter)
-    {
-        printf("%d\t", bfs[i]);
-        i++;
-    }
 }
+
 // Driver program to test above functions
 int main()
 {
