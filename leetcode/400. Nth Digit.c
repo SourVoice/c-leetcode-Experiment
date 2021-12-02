@@ -1,23 +1,30 @@
 /*400. 第 N 位数字*/
-#include <math.h>
-//超时
 int findNthDigit(int n)
 {
-    long sum = 0; //rec the pos of all the nums
-    long numth = 0;
-    for (long i = 1; i <= n; i++)
+    if (n < 10)
+        return n;
+    long sum = 0; // rec the total num of the prefix
+    long long cnt = 9;
+    int digit = 1;
+    while (sum <= n)
     {
-        while (numth + 1 < pow(10, i))
-        {
-            sum += i;
-            numth++;
-            if (n <= sum)
-            {
-                // printf("numth = %d, sum = %d\n",numth, sum);
-                return numth % (int)pow(10, sum - n + 1) / pow(10, sum - n);
-            }
-        }
+        sum += digit * cnt;
+        digit++;
+        cnt *= 10;
     }
-    return 0;
+    // set the range to
+    // digit 1 for 1-9
+    // digit 2 for 10-99
+    // digit 3 for 100-999
+    // so on
+    long long numth = pow(10, digit - 2);
+    long long diff = n - (sum - (digit - 1) * cnt / 10);
+    // printf(" numth = %d digit = %d diff = %d",numth,digit,diff);
+    int count = 0;
+    while (count < diff)
+    {
+        numth++;
+        count += digit - 1;
+    }
+    return (numth - 1) / (int)pow(10, count - diff) % 10;
 }
-//1,3,4,5,6,7,8,9,10,11,12
