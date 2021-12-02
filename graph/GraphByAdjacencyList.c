@@ -185,6 +185,20 @@ void bfsTheGraph(Graph *graph, int begin)
         }
     }
 }
+// dfs of the graph
+void dfsTheGraph(Graph *graph, int beginV, int *visited)
+{
+    visited[beginV] = 1;
+
+    printf("%d ", beginV);
+    for (AdjacencyListNode *i = graph->arr[beginV].head; i != NULL; i = i->next)
+    {
+        if (!visited[i->v])
+        {
+            dfsTheGraph(graph, i->v, visited);
+        }
+    }
+}
 
 // Driver program to test above functions
 int main()
@@ -213,6 +227,9 @@ int main()
 
     // Breadth-first-search of the Graph
     bfsTheGraph(graph, 0);
+    printf("\n");
 
+    int *visited = (int *)malloc(sizeof(int) * graph->vertexNum);
+    dfsTheGraph(graph, 0, visited);
     return 0;
 }
