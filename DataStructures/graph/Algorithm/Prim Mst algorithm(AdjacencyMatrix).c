@@ -8,13 +8,7 @@
 #define vertexNum 5
 #define false 0
 #define true 1
-
-// typedef struct _mstSet // keeps track of vertices already included in MST
-// {
-//     int src;
-//     int dest;
-// } mstSet;
-
+#define bool int
 // find the min key in the mstSet not included in the mst
 int getMinKey(int *key, int *mstSet)
 {
@@ -35,11 +29,11 @@ int getMinKey(int *key, int *mstSet)
 void PrimMST(int graph[vertexNum][vertexNum])
 {
     int *key = (int *)malloc(sizeof(int) * vertexNum); // an array to rec vertex's weight
-    for (int i = 0; i < vertexNum; i++)
+    for (int i = 0; i < vertexNum; i++)                // fill the key array with INT_MAX
         key[i] = INT_MAX;
     // memset(key, INT_MAX - 1, sizeof(int) * vertexNum);//memset函数只能按照字节填充(INT_MAX转为(unsigned char))
 
-    int *mstSet = (int *)malloc(sizeof(int) * vertexNum); // an array to rec if the vertex has been add to the mst
+    bool *mstSet = (bool *)malloc(sizeof(bool) * vertexNum); // an array to rec if the vertex has been add to the mst
     memset(mstSet, false, sizeof(int) * vertexNum);
 
     int *MST = (int *)malloc(sizeof(int) * vertexNum); // mst will have vertexNum V
