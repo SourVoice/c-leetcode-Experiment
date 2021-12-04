@@ -71,10 +71,12 @@ int isCycle(Graph *graph)
     // there is cycle in graph.
     for (int i = 0; i < graph->vertexNum; i++)
     {
-        if (find(disjointSet->parent, graph->edge[i].src) == find(disjointSet->parent, graph->edge[i].dest)) // check wherthe the root of the src and the dest are the same
-            return 1;                                                                                        // find that there is a cycle(both subsets are same)
+        int x = find(disjointSet->parent, graph->edge[i].src);
+        int y = find(disjointSet->parent, graph->edge[i].dest);
+        if (x == y)   // check wherthe the root of the src and the dest are the same
+            return 1; // find that there is a cycle(both subsets are same)
 
-        getUnion(disjointSet->parent, graph->edge[i].src, graph->edge[i].dest);
+        getUnion(disjointSet->parent, x, y);
     }
     return 0;
 }
