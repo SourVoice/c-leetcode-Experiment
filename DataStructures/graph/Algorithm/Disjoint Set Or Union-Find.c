@@ -50,6 +50,7 @@ DSU *initDSU(int vertexNUM)
     memset(newDSU->parent, -1, sizeof(int) * vertexNUM); // means there is only one item in every subset985
     return newDSU;
 }
+// find the elem x's subset, x's root is repensitive the the subset
 int find(int *parent, int x)
 {
     if (parent[x] == -1)
