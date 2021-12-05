@@ -3,8 +3,8 @@
 #include "HuffmanByMinHeap.h"
 #ifndef BUILD_HUFFMAN_TREE_BY_HEAP
 #define BUILD_HUFFMAN_TREE_BY_HEAP
-//creat the MinHeap
-//and update the MinHeap's Node
+// creat the MinHeap
+// and update the MinHeap's Node
 struct MinHeapNode *newMinHeapNode(char data, unsigned int frequency)
 {
     struct MinHeapNode *temp = (struct MinHeapNode *)malloc(sizeof(struct MinHeapNode));
@@ -15,7 +15,7 @@ struct MinHeapNode *newMinHeapNode(char data, unsigned int frequency)
     temp->data = data;
     return temp;
 }
-//initialize the MinHeap with capacity
+// initialize the MinHeap with capacity
 struct MinHeap *initMinHeap(unsigned capacity)
 {
     struct MinHeap *theMinHeap =
@@ -28,7 +28,7 @@ struct MinHeap *initMinHeap(unsigned capacity)
         (struct MinHeapNode **)malloc(sizeof(struct MinHeapNode *) * theMinHeap->capacity);
     return theMinHeap;
 }
-//swap the two MinHeapNode in the heap(元素下沉)
+// swap the two MinHeapNode in the heap(元素下沉)
 void swapMinHeapNode(struct MinHeapNode **a, struct MinHeapNode **b)
 {
     struct MinHeapNode *temp = *a;
@@ -39,9 +39,9 @@ void swapMinHeapNode(struct MinHeapNode **a, struct MinHeapNode **b)
 //最小堆算法
 void minHeapify(struct MinHeap *theMinHeap, int x)
 {
-    int left = x * 2 + 1;  //node's lchild
-    int right = x * 2 + 2; //node's rchile
-    int smallest = x;      //default parent node
+    int left = x * 2 + 1;  // node's lchild
+    int right = x * 2 + 2; // node's rchile
+    int smallest = x;      // default parent node
 
     if (left < theMinHeap->size &&
         theMinHeap->arr[left]->freq < theMinHeap->arr[smallest]->freq)
@@ -60,30 +60,30 @@ void minHeapify(struct MinHeap *theMinHeap, int x)
     }
 }
 
-//check heap's elements is one
+// check heap's elements is one
 int isSizeOne(struct MinHeap *minHeap)
 {
     return (minHeap->size == 1);
 }
 
-//judge is leaf
+// judge is leaf
 int isLeaf(struct MinHeapNode *root)
 {
     return (!root->left) && (!root->right);
 }
-//extract(提取)the minimum(by freauency) MinHeapNode from MinHeap
+// extract(提取)the minimum(by freauency) MinHeapNode from MinHeap
 //同时也是堆的删除操作
 struct MinHeapNode *exactMin(struct MinHeap *theMinHeap)
 {
-    struct MinHeapNode *temp = theMinHeap->arr[0];              //exact the top
-    theMinHeap->arr[0] = theMinHeap->arr[theMinHeap->size - 1]; //set last to top
+    struct MinHeapNode *temp = theMinHeap->arr[0];              // exact the top
+    theMinHeap->arr[0] = theMinHeap->arr[theMinHeap->size - 1]; // set last to top
 
     theMinHeap->size--;
     minHeapify(theMinHeap, 0); //维护最小堆
 
     return temp;
 }
-//insert elems to MinHeap
+// insert elems to MinHeap
 void insertMinHeap(struct MinHeap *minHeap, struct MinHeapNode *minHeapNode)
 {
     minHeap->size++;
@@ -95,16 +95,16 @@ void insertMinHeap(struct MinHeap *minHeap, struct MinHeapNode *minHeapNode)
     }
     minHeap->arr[i] = minHeapNode;
 }
-//build a heap
+// build a heap
 void buildMinHeap(struct MinHeap *minHeap)
 {
     int n = minHeap->size - 1;
-    for (int i = (n - 1) / 2; i >= 0; i--) //build from the last's elem's parent't node
+    for (int i = (n - 1) / 2; i >= 0; i--) // build from the last's elem's parent't node
     {
         minHeapify(minHeap, i);
     }
 }
-//inject elems(输入元素)
+// inject elems(输入元素)
 struct MinHeap *setElemsMinHeap(char *data, int *freq, int size)
 {
     struct MinHeap *minHeap = initMinHeap(size);
@@ -114,18 +114,18 @@ struct MinHeap *setElemsMinHeap(char *data, int *freq, int size)
     buildMinHeap(minHeap);
     return minHeap;
 }
-//build a huffmantree algorithm
+// build a huffmantree algorithm
 struct MinHeapNode *buildHuffmanTree(char *data, int *freq, int size)
 {
     struct MinHeapNode *left, *right, *mergeToTheTop;
     struct MinHeap *minHeap = setElemsMinHeap(data, freq, size);
     while (!isSizeOne(minHeap))
     {
-        //step2:
+        // step2:
         left = exactMin(minHeap);
         right = exactMin(minHeap);
 
-        //step3:
+        // step3:
         //取出两个freq最小的合并成一个,插入堆中,进行维护
         //小的在左
         mergeToTheTop = newMinHeapNode('#', left->freq + right->freq);
@@ -135,8 +135,8 @@ struct MinHeapNode *buildHuffmanTree(char *data, int *freq, int size)
     }
     return exactMin(minHeap);
 }
-//set storeCodes from the HuffmanTree,
-//store in storeCodes Array
+// set storeCodes from the HuffmanTree,
+// store in storeCodes Array
 void buildAndDisplayCodes(struct MinHeapNode *root, int *storeCodes, int top)
 {
     if (root->left)
@@ -159,8 +159,8 @@ void buildAndDisplayCodes(struct MinHeapNode *root, int *storeCodes, int top)
         printf("\n");
     }
 }
-//build a huffmantree
-//then print its codes
+// build a huffmantree
+// then print its codes
 struct MinHeapNode *HuffmanCodes(char *data, int *freq, int size)
 {
     struct MinHeapNode *root = buildHuffmanTree(data, freq, size);
