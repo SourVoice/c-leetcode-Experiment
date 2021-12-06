@@ -10,7 +10,7 @@ char *truncateSentence(char *s, int k)
             cnt++;
         str++;
     }
-    s[str - s] = '\0';
+    s[str == strlen(s) + s ? str - s : str - s - 1] = '\0';
     return s;
 }
 int main()
