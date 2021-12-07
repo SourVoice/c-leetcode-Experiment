@@ -21,6 +21,7 @@
     "xmemory": "cpp",
     "algorithm": "cpp",
     "stack": "cpp",
+    "map": "cpp",
     "atomic": "cpp",
     "deque": "cpp",
     "iterator": "cpp",
@@ -31,7 +32,8 @@
     "xiosbase": "cpp",
     "xhash": "cpp",
     "bits/stdc++.h": "cpp",
-    "postfix_evaluator.h": "c"
+    "postfix_evaluator.h": "c",
+    "unordered_map": "c"
   },
   "code-runner.executorMap": {
     "cpp": "cd $dir && g++ -std=c++11 $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe",
@@ -43,5 +45,12 @@
     "rpcUrl": "https://rpc.cnblogs.com/metaweblog/ladies",
     "userName": "RochesterBen",
     "blogWorkspace": "D:\\workstation\\cnblogLocal"
-  }
+  },
+  "zhihu.enableMermaidToPng": true,
+  "zhihu.mermaidTheme": "dark", // 支持设置 mermaid 图片主题，默认值是 "default"
+  "vscode-office.autoTheme": true,
+  "workbench.editorAssociations": {
+    "*.md": "default"
+  },
+  "jupyter.kernels.filter": []
 }

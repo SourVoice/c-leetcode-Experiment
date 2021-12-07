@@ -5,7 +5,7 @@
       "name": "C/C++",
       "type": "cppdbg",
       "request": "launch",
-      "program": "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}",
+      "program": "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
