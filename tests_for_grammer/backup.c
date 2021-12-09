@@ -81,7 +81,7 @@ int main()
         sqstack_push(pre, operation_top);
         sqstack_pop(operation, &operation_top);
     }
-    //pre反转
+    // pre反转
     sqstack *tail_equation = sqstack_creat(); //后缀表达式的栈形式
     while (!is_empty(pre))
     {
@@ -150,13 +150,13 @@ sqstack *sqstack_creat()
     stack->top_index = -1;
     return stack;
 }
-//push
+// push
 void sqstack_push(sqstack *stack, char element) //入栈
 {
     assert(!is_full(stack));
     stack->data[++stack->top_index] = element;
 }
-//pop
+// pop
 void sqstack_pop(sqstack *stack, char *element)
 {
     assert(!is_empty(stack));
