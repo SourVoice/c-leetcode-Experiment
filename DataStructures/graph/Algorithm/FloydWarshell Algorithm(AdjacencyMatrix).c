@@ -1,4 +1,5 @@
-// flody
+// Flody-Warshell algorithm
+// The Floyd–Warshall algorithm typically only provides the lengths of the paths between all pairs of vertices.
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
