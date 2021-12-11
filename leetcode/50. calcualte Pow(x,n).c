@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
 /*
  * @lc app=leetcode.cn id=50 lang=c
  *
@@ -5,30 +8,59 @@
  */
 
 // @lc code=start
-double powFunc(double x, uint32_t n)
-{
-    if (n == 1)
-        return x;
-    if (n % 2 != 0)
-    {
-        double intermediate = powFunc(x, n / 2);
-        return intermediate * intermediate * x;
-    }
-    else
-    {
-        double intermediate = powFunc(x, n / 2);
-        return intermediate * intermediate;
-    }
-}
-
+//位运算法:
 double myPow(double x, int n)
 {
-    if (n == 0 || x == 1)
-        return 1;
-    if (n < 0)
-        return 1 / powFunc(x, abs(n));
-    return powFunc(x, n);
+    double res = 1;
+    while (n)
+    {
+        if (n & 1)
+            res = n > 0 ? res * x : res / x;
+        x = x * x;
+        n = n / 2;
+    }
+    return res;
 }
+// 迭代法iterative way
+double myPow(double x, int n)
+{
+    double res = 1;
+    while (n)
+    {
+        if (n % 2) // depose n as binary number and
+                   // then keep multiplying for x to raise to some power of 2 value
+                   // as we go along.
+            res = n > 0 ? res * x : res / x;
+        x = x * x;
+        n /= 2;
+    }
+    return res;
+}
+// 递归法
+// double powFunc(double x, uint32_t n)
+// {
+//     if (n == 1)
+//         return x;
+//     if (n % 2 != 0)
+//     {
+//         double intermediate = powFunc(x, n / 2);
+//         return intermediate * intermediate * x;
+//     }
+//     else
+//     {
+//         double intermediate = powFunc(x, n / 2);
+//         return intermediate * intermediate;
+//     }
+// }
+
+// double myPow(double x, int n)
+// {
+//     if (n == 0 || x == 1)
+//         return 1;
+//     if (n < 0)
+//         return 1 / powFunc(x, abs(n));
+//     return powFunc(x, n);
+// }
 //暴力法
 // double myPow(double x, int n)
 // {
