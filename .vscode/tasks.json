@@ -3,12 +3,12 @@
   "tasks": [
     {
       "type": "cppbuild",
-      "label": "gcc",
+      "label": "C/C++: gcc.exe 生成活动文件",
       "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe",
       "args": [
         "-g",
-        "-fexec-charset=GBK", //输出编码(必须和终端编码保持一致)
         "-finput-charset=GBK", //文件编码
+        "-fexec-charset=utf-8", //输出编码(必须和终端编码保持一致)
         "${file}",
         "-o",
         "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe"
@@ -23,13 +23,15 @@
     {
       "type": "cppbuild",
       "label": "C/C++: g++.exe 生成活动文件",
-      "command": "C:\\mingw-w64\\mingw64\\bin\\g++.exe",
+      "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\g++.exe",
       "args": [
         "-fdiagnostics-color=always",
         "-g",
         "${file}",
+        "-finput-charset=GBK", //文件编码
+        "-fexec-charset=utf-8", //输出编码(必须和终端编码保持一致)
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe"
       ],
       "options": {
         "cwd": "${fileDirname}"

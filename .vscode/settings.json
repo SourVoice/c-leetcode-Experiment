@@ -37,7 +37,8 @@
   },
   "code-runner.executorMap": {
     "cpp": "cd $dir && g++ -std=c++11 $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe",
-    "c": " cd $dir && gcc $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe " //结尾添加" > log.txt "结果输出到log.txt
+    "c": " cd $dir && gcc $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe ", //结尾添加" > log.txt "结果输出到log.txt
+    "java": "cd $dir && javac $fileName && java $fileNameWithoutExt"
   },
   "asoul.reminderViewIntervalInMinutes": 30,
   "files.encoding": "gbk",
@@ -52,5 +53,6 @@
   "workbench.editorAssociations": {
     "*.md": "default"
   },
-  "jupyter.kernels.filter": []
+  "jupyter.kernels.filter": [],
+  "jupyter.themeMatplotlibPlots": true
 }
