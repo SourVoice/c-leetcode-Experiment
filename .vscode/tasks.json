@@ -1,49 +1,45 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "cppbuild",
-            "label": "gcc",
-            "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe",
-            "args": [
-                "-g",
-                "-fexec-charset=GBK",
-                "-finput-charset=UTF-8",
-                "${file}",
-                "-o",
-                "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-            "detail": "编译器: D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe"
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe 生成活动文件",
-            "command": "C:\\mingw-w64\\mingw64\\bin\\g++.exe",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "调试器生成的任务。"
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "gcc",
+      "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe",
+      "args": [
+        "-g",
+        "-fexec-charset=GBK", //输出编码(必须和终端编码保持一致)
+        "-finput-charset=GBK", //文件编码
+        "${file}",
+        "-o",
+        "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "detail": "编译器: D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe"
+    },
+    {
+      "type": "cppbuild",
+      "label": "C/C++: g++.exe 生成活动文件",
+      "command": "C:\\mingw-w64\\mingw64\\bin\\g++.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "调试器生成的任务。"
+    }
+  ]
 }
