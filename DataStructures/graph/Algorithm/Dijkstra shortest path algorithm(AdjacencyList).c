@@ -27,7 +27,7 @@ Graph *initGraph(int V)
 {
     Graph *newGraph = (Graph *)malloc(sizeof(Graph));
     newGraph->vertexNum = V;
-    newGraph->arr = (AdjList *)malloc(sizeof(AdjList));
+    newGraph->arr = (AdjList *)malloc(sizeof(AdjList) * V);
     for (int i = 0; i < V; i++)
     {
         newGraph->arr[i].head = NULL;
