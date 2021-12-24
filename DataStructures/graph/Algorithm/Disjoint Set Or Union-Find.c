@@ -63,7 +63,7 @@ void getUnion(int *parent, int x, int y)
     parent[x] = y; // use y as x's parent "node"
 }
 // check whether there's a cycle in the graph
-int isCycle(Graph *graph)
+int findCycle(Graph *graph)
 {
     DSU *disjointSet = initDSU(graph->vertexNum);
 
@@ -91,7 +91,7 @@ int main()
     addEdge(graph, 2, 0);
 
     // judge
-    if (isCycle(graph))
+    if (findCycle(graph))
         printf("graph contains cycle");
     else
         printf("graph doesn't contain cycle");
