@@ -1,7 +1,7 @@
 // 1078. Bigram ·Ö´Ê
 #include <string.h>
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
@@ -18,35 +18,42 @@ char **findOcurrences(char *text, char *first, char *second, int *returnSize)
     int textIndex = 0;
     int index[10001];
     *returnSize = 0;
-    while (1)
+    int wordl[10001];
+    int num = 0;
+    int l = 0;
+    for (int i = 0; i < textLen; i++)
     {
-        int find = 1;
-        int size = 0;
-        for (int i = 0; i < prefixLen; i++, textIndex++)
+        l++;
+        if (text[i] == ' ' || text[i] == '\0')
         {
+            wordl[num++] = l - 1;
+            l = 0;
+        }
+    }
+    printf("\n");
 
+    num = 0;
+    while (textIndex <= textLen - prefixLen)
+    {
+        int tmp = textIndex;
+        int find = 1;
+        for (int i = 0, textIndex = tmp; i < prefixLen; i++, textIndex++)
+        {
             if (text[textIndex] != prefix[i])
             {
                 find = 0;
                 break;
             }
-            size++;
         }
         if (find)
         {
+            printf("%d ", textIndex + prefixLen);
             find = 0;
-            index[(*returnSize)++] = textIndex + 1;
-            textIndex = textIndex - prefixLen;
+            index[(*returnSize)++] = textIndex + prefixLen + 1;
         }
-        if (size == strlen(first) + 1)
-            continue;
-        while (text[textIndex] != ' ' && textIndex < textLen)
-            textIndex++;
-        textIndex++;
-        if (textIndex == textLen)
+        textIndex = tmp + wordl[num++] + 1;
+        if (textIndex >= textLen - prefixLen)
             break;
-        if (text[textIndex] == ' ')
-            textIndex++;
     }
 
     char **ans = (char **)malloc(sizeof(char *) * (*returnSize));
@@ -64,3 +71,32 @@ char **findOcurrences(char *text, char *first, char *second, int *returnSize)
     }
     return ans;
 }
+
+int main()
+{
+
+    // char *text = "alice is a good girl she is a good student";
+    // char *first = "a";
+    // char *second = "good";
+
+    char *text = "ypkk lnlqhmaohv lnlqhmaohv lnlqhmaohv ypkk ypkk ypkk ypkk ypkk ypkk lnlqhmaohv lnlqhmaohv lnlqhmaohv lnlqhmaohv ypkk ypkk ypkk lnlqhmaohv lnlqhmaohv ypkk";
+    char *first = "lnlqhmaohv";
+    char *second = "ypkk";
+
+    int *returnSize = malloc(sizeof(int));
+    *returnSize = 0;
+
+    char **a;
+
+    a = findOcurrences(text, first, second, returnSize);
+    for (int i = 0; i < *returnSize; i++)
+    {
+        printf("\n%s", a[i]);
+    }
+    return 0;
+}
+/*
+"ypkk lnlqhmaohv lnlqhmaohv lnlqhmaohv ypkk ypkk ypkk ypkk ypkk ypkk lnlqhmaohv lnlqhmaohv lnlqhmaohv lnlqhmaohv ypkk ypkk ypkk lnlqhmaohv lnlqhmaohv ypkk"
+"lnlqhmaohv"
+"ypkk"
+*/
