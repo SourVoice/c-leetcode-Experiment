@@ -143,3 +143,6 @@ exe/GraphByAdjacency.exe
 exe/h3.exe
 exe/Binary Search Algo.exe
 exe/h4.exe
+exe/leetcode1078.exe
+tests_for_grammer/leetcode1078.c
+tests_for_grammer/strcatFun.c
