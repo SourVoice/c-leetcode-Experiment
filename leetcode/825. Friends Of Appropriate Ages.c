@@ -43,3 +43,32 @@ int main()
     ans = numFriendRequests(a, 5);
     return 0;
 }
+//”≈ªØ∞Ê
+/*
+#define MAX_LEN 121
+int numFriendRequests(int* ages, int agesSize)
+{
+    int total = 0;
+    int nums[MAX_LEN] = {0};
+
+    for (int i = 0; i < agesSize; i++) {
+        nums[ages[i]]++;
+    }
+    for (int i = 0; i < MAX_LEN; i++) {
+        if (nums[i] == 0) {
+            continue;
+        }
+        for (int j = 0; j < MAX_LEN; j++) {
+            if (j <= 0.5 * i + 7 || j > i) {
+                continue;
+            }
+            if (i == j) {
+                total += nums[i] * (nums[i] - 1);
+            } else {
+                total += nums[i] * nums[j];
+            }
+        }
+    }
+    return total;
+}
+*/
