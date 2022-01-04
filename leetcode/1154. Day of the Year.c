@@ -4,8 +4,7 @@
 
 int leapYear(int year)
 {
-    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
-        return 1;
+    return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0) ? 1 : 0;
 }
 
 // date format is YYYY-MM-DD
