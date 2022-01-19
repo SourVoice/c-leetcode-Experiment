@@ -1,3 +1,5 @@
+// 5.最长回文子串
+//动态规划,中心拓展法
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
