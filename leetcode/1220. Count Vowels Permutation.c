@@ -1,11 +1,11 @@
 // 1220. 统计元音字母序列的数目
-//动态规划
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdarg.h>
 
+//法一:动态规划
 // #define mod_num (1e9 + 7)
 int countVowelPermutation(int n)
 {
@@ -48,11 +48,77 @@ int countVowelPermutation(int n)
 //矩阵快速幂
 typedef long long LL;
 typedef LL *Mat;
-#define IDX(x, y, col) ((x) * (col)) + (y)
+#define index(x, y, col) ((x) * (col)) + (y)
 
-Mat *multiply(const Mat matrixA, int matrixARowSize, int matrixColSize,
-              const Mat matrixB, int matrixBRow, int matrixBColSize,
-              LL mod)
+Mat multiply(const Mat matrixA, int matrixARowSize, int matrixAColSize,
+             const Mat matrixB, int matrixBRowSize, int matrixBColSize,
+             LL mod)
 {
     Mat res = (LL *)malloc(sizeof(LL) * matrixARowSize * matrixBColSize);
+    memset(res, 0, sizeof(LL) * matrixARowSize * matrixBColSize);
+
+    for (int i; i < matrixARowSize; i++)
+    {
+        for (int j = 0; j < matrixBColSize; j++)
+        {
+            for (int k = 0; k < matrixAColSize; k++)
+            {
+                res[index(i, j, matrixAColSize)] =
+                    (res[index(i, j, matrixAColSize)] +
+                     matrixA[index(i, k, matrixAColSize)] * matrixB[index(k, j, matrixBColSize)]) %
+                    mod;
+            }
+        }
+    }
+    return res;
+}
+Mat fastPow(const Mat a, LL matrixRowSize, LL n, LL mod)
+{
+    Mat res = (LL *)malloc(sizeof(LL) * matrixRowSize * matrixRowSize);
+    Mat curr = (LL *)malloc(sizeof(LL) * matrixRowSize * matrixRowSize);
+
+    memset(res, 0, sizeof(LL) * matrixRowSize * matrixRowSize);
+    memset(curr, 0, sizeof(LL) * matrixRowSize * matrixRowSize);
+    memcpy(curr, a, sizeof(int) * matrixRowSize * matrixRowSize);
+
+    for (int i = 0; i < matrixRowSize; i++) //对角线置1
+    {
+        res[index(i, i, matrixRowSize)] = 1;
+    }
+    while (n != 0)
+    {
+        if (n & 1)
+        {
+            Mat temp = multiply(curr, matrixRowSize, matrixRowSize,
+                                res, matrixRowSize, matrixRowSize,
+                                mod);
+            curr = temp;
+        }
+
+        n >>= 1;
+        Mat temp = multiply(curr, matrixRowSize, matrixRowSize,
+                            curr, matrixRowSize, matrixRowSize,
+                            mod);
+        curr = temp;
+    }
+    return res;
+}
+int countVowelPermutation(int n)
+{
+    LL base[25] = {
+        0, 1, 0, 0, 0,
+        1, 0, 1, 0, 0,
+        1, 1, 0, 1, 1,
+        0, 0, 1, 0, 1,
+        1, 0, 0, 0, 0};
+
+    long long mod = 1e9 + 7;
+
+    Mat res = fastPow(&base, 5, n - 1, mod);
+    int ans = 0;
+    for (int i = 0; i < 25; i++)
+    {
+        ans += res[i] % mod;
+    }
+    return ans;
 }
