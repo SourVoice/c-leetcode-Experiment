@@ -48,7 +48,7 @@ int countVowelPermutation(int n)
 //矩阵快速幂
 typedef long long LL;
 typedef LL *Mat;
-#define index(x, y, col) ((x) * (col)) + (y)
+#define index(x, y, col) ((x) * (col) + (y))
 
 Mat multiply(const Mat matrixA, int matrixARowSize, int matrixAColSize,
              const Mat matrixB, int matrixBRowSize, int matrixBColSize,
@@ -57,7 +57,7 @@ Mat multiply(const Mat matrixA, int matrixARowSize, int matrixAColSize,
     Mat res = (LL *)malloc(sizeof(LL) * matrixARowSize * matrixBColSize);
     memset(res, 0, sizeof(LL) * matrixARowSize * matrixBColSize);
 
-    for (int i; i < matrixARowSize; i++)
+    for (int i = 0; i < matrixARowSize; i++)
     {
         for (int j = 0; j < matrixBColSize; j++)
         {
@@ -72,14 +72,14 @@ Mat multiply(const Mat matrixA, int matrixARowSize, int matrixAColSize,
     }
     return res;
 }
-Mat fastPow(const Mat a, LL matrixRowSize, LL n, LL mod)
+Mat fastPow(const Mat a, int matrixRowSize, LL n, LL mod)
 {
     Mat res = (LL *)malloc(sizeof(LL) * matrixRowSize * matrixRowSize);
     Mat curr = (LL *)malloc(sizeof(LL) * matrixRowSize * matrixRowSize);
 
     memset(res, 0, sizeof(LL) * matrixRowSize * matrixRowSize);
     memset(curr, 0, sizeof(LL) * matrixRowSize * matrixRowSize);
-    memcpy(curr, a, sizeof(int) * matrixRowSize * matrixRowSize);
+    memcpy(curr, a, sizeof(LL) * matrixRowSize * matrixRowSize);
 
     for (int i = 0; i < matrixRowSize; i++) //对角线置1
     {
@@ -92,7 +92,7 @@ Mat fastPow(const Mat a, LL matrixRowSize, LL n, LL mod)
             Mat temp = multiply(curr, matrixRowSize, matrixRowSize,
                                 res, matrixRowSize, matrixRowSize,
                                 mod);
-            curr = temp;
+            res = temp;
         }
 
         n >>= 1;
@@ -101,6 +101,8 @@ Mat fastPow(const Mat a, LL matrixRowSize, LL n, LL mod)
                             mod);
         curr = temp;
     }
+    for (int i = 0; i < matrixRowSize * matrixRowSize; i++)
+        printf("%d ", res[i]);
     return res;
 }
 int countVowelPermutation(int n)
@@ -114,11 +116,11 @@ int countVowelPermutation(int n)
 
     long long mod = 1e9 + 7;
 
-    Mat res = fastPow(&base, 5, n - 1, mod);
+    Mat res = fastPow(base, 5, n - 1, mod);
     int ans = 0;
     for (int i = 0; i < 25; i++)
     {
-        ans += res[i] % mod;
+        ans = (ans + res[i]) % mod;
     }
     return ans;
 }
