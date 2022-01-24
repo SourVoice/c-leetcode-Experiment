@@ -23,3 +23,29 @@ public:
         return false;
     }
 };
+class Solution2
+{
+public:
+    int squareFunc(int x)
+    {
+        int square = 0;
+        while (x > 0)
+        {
+            square += (x % 10) * (x % 10);
+            x /= 10;
+        }
+        return square;
+    }
+
+    bool isHappy(int n)
+    {
+        int fast = squareFunc(n);
+        int slow = n;
+        while (slow != fast && fast != 1)
+        {
+            slow = squareFunc(slow);
+            fast = squareFunc(squareFunc(fast));
+        }
+        return fast == 1;
+    }
+};
