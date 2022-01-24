@@ -2,6 +2,8 @@
 /*Dijkstra's algorithm to build Shortest Path Tree*/
 //使用Dijkstra's algorithm建立最短路径树
 // with AdjacencyList
+
+//超时未解决
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
