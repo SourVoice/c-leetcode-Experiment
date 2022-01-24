@@ -100,11 +100,16 @@ void MinHeapify(MinHeap *minHeap, int index)
         smallest = right;
     if (smallest != index)
     {
-        minHeap->pos[minHeap->arr[index]->v] = smallest;
-        minHeap->pos[minHeap->arr[smallest]->v] = index;
+        // The nodes to be swapped in min heap
+        MinHeapNode *smallestNode = minHeap->arr[smallest];
+        MinHeapNode *idxNode = minHeap->arr[index];
+
+        // Swap positions
+        minHeap->pos[smallestNode->v] = index;
+        minHeap->pos[idxNode->v] = smallest;
 
         swapMinHeapNode(&minHeap->arr[smallest], &minHeap->arr[index]);
-        MinHeapify(minHeap, 0);
+        MinHeapify(minHeap, smallest);
     }
 }
 MinHeapNode *extractMin(MinHeap *minHeap)
@@ -135,7 +140,12 @@ void updateKey(MinHeap *minHeap, int v, int dist)
         i = (i - 1) / 2;
     }
 }
-
+// A utility function to check if
+// the given minHeap is ampty or not
+int isEmpty(MinHeap *minHeap)
+{
+    return minHeap->size == 0;
+}
 int isInMinHeap(MinHeap *minHeap, int v)
 {
     if (minHeap->pos[v] < minHeap->size)
