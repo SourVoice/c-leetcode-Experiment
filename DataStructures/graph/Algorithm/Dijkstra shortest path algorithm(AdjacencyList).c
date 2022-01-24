@@ -178,7 +178,7 @@ void DijkstraSPT(Graph *garph, int beginV)
 
         for (AdjListNode *v = garph->arr[u->v].head; v != NULL; v = v->next)
         {
-            if (isInMinHeap(minHeap, v->v) && dist[v->v] > dist[u->v] + v->weight)
+            if (isInMinHeap(minHeap, v->v) && dist[u->v] != INT_MAX && dist[v->v] > dist[u->v] + v->weight)
             {
                 dist[v->v] = v->weight + dist[u->v];
                 updateKey(minHeap, v->v, dist[v->v]);
