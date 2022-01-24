@@ -16,276 +16,145 @@
 class Solution
 {
 public:
-    // A structure to represent a
-    // node in adjacency list
-    struct AdjListNode
+    typedef struct _AdjListNode
     {
-        int dest;
+        int v;
         int weight;
-        struct AdjListNode *next;
-    };
+        struct _AdjListNode *next;
+    } AdjListNode;
 
-    // A structure to represent
-    // an adjacency list
-    struct AdjList
+    typedef struct _AdjList
     {
-
-        // Pointer to head node of list
-        struct AdjListNode *head;
-    };
-
-    // A structure to represent a graph.
-    // A graph is an array of adjacency lists.
-    // Size of array will be V (number of
-    // vertices in graph)
-    struct Graph
+        AdjListNode *head;
+    } AdjList;
+    typedef struct _Graph
     {
-        int V;
-        struct AdjList *array;
-    };
+        int vertexNum;
+        AdjList *arr;
+    } Graph;
 
-    // A utility function to create
-    // a new adjacency list node
-    struct AdjListNode *newAdjListNode(
-        int dest, int weight)
+    Graph *initGraph(int V)
     {
-        struct AdjListNode *newNode =
-            (struct AdjListNode *)
-                malloc(sizeof(struct AdjListNode));
-        newNode->dest = dest;
-        newNode->weight = weight;
-        newNode->next = NULL;
-        return newNode;
+        Graph *newGraph = (Graph *)malloc(sizeof(Graph));
+        newGraph->vertexNum = V;
+        newGraph->arr = (AdjList *)malloc(sizeof(AdjList) * V);
+        for (int i = 0; i < V; i++)
+        {
+            newGraph->arr[i].head = NULL;
+        }
+        return newGraph;
     }
-
-    // A utility function that creates
-    // a graph of V vertices
-    struct Graph *createGraph(int V)
+    AdjListNode *creatNewAdjListNode(int v, int weight)
     {
-        struct Graph *graph = (struct Graph *)
-            malloc(sizeof(struct Graph));
-        graph->V = V;
+        AdjListNode *newAdjListNode = (AdjListNode *)malloc(sizeof(AdjListNode));
 
-        // Create an array of adjacency lists.
-        // Size of array will be V
-        graph->array = (struct AdjList *)
-            malloc(V * sizeof(struct AdjList));
-
-        // Initialize each adjacency list
-        // as empty by making head as NULL
-        for (int i = 0; i < V; ++i)
-            graph->array[i].head = NULL;
-
-        return graph;
+        newAdjListNode->v = v;
+        newAdjListNode->weight = weight;
+        newAdjListNode->next = NULL;
+        return newAdjListNode;
     }
-
-    // Adds an edge to an undirected graph
-    void addEdge(struct Graph *graph, int src,
-                 int dest, int weight)
+    void addAnEdge(Graph *graph, int src, int dest, int weight)
     {
-        // Add an edge from src to dest.
-        // A new node is added to the adjacency
-        // list of src.  The node is
-        // added at the beginning
-        struct AdjListNode *newNode =
-            newAdjListNode(dest, weight);
-        newNode->next = graph->array[src].head;
-        graph->array[src].head = newNode;
+        AdjListNode *newAdjListNode = creatNewAdjListNode(src, weight);
+        newAdjListNode->next = graph->arr[dest].head;
+        graph->arr[dest].head = newAdjListNode;
 
-        // Since graph is undirected,
-        // add an edge from dest to src also
-        newNode = newAdjListNode(src, weight);
-        newNode->next = graph->array[dest].head;
-        graph->array[dest].head = newNode;
+        newAdjListNode = creatNewAdjListNode(dest, weight);
+        newAdjListNode->next = graph->arr[src].head;
+        graph->arr[src].head = newAdjListNode;
     }
-
-    // Structure to represent a min heap node
-    struct MinHeapNode
+    typedef struct _MinHeapNode
     {
         int v;
         int dist;
-    };
-
-    // Structure to represent a min heap
-    struct MinHeap
+    } MinHeapNode;
+    typedef struct _MinHeap
     {
-
-        // Number of heap nodes present currently
         int size;
-
-        // Capacity of min heap
         int capacity;
-
-        // This is needed for decreaseKey()
         int *pos;
-        struct MinHeapNode **array;
-    };
-
-    // A utility function to create a
-    // new Min Heap Node
-    struct MinHeapNode *newMinHeapNode(int v,
-                                       int dist)
+        MinHeapNode **arr;
+    } MinHeap;
+    MinHeap *initMinHeap(int vertexNum)
     {
-        struct MinHeapNode *minHeapNode =
-            (struct MinHeapNode *)
-                malloc(sizeof(struct MinHeapNode));
-        minHeapNode->v = v;
-        minHeapNode->dist = dist;
-        return minHeapNode;
+        MinHeap *newMinHeap = (MinHeap *)malloc(sizeof(MinHeap));
+        newMinHeap->capacity = vertexNum;
+        newMinHeap->size = 0;
+        newMinHeap->pos = (int *)malloc(sizeof(int) * vertexNum);
+        newMinHeap->arr = (MinHeapNode **)malloc(sizeof(MinHeapNode *) * vertexNum);
+        return newMinHeap;
     }
-
-    // A utility function to create a Min Heap
-    struct MinHeap *createMinHeap(int capacity)
+    MinHeapNode *creatMinHeapNode(int v, int dist)
     {
-        struct MinHeap *minHeap =
-            (struct MinHeap *)
-                malloc(sizeof(struct MinHeap));
-        minHeap->pos = (int *)malloc(
-            capacity * sizeof(int));
-        minHeap->size = 0;
-        minHeap->capacity = capacity;
-        minHeap->array =
-            (struct MinHeapNode **)
-                malloc(capacity *
-                       sizeof(struct MinHeapNode *));
-        return minHeap;
+        MinHeapNode *newMinHeapNode = (MinHeapNode *)malloc(sizeof(MinHeapNode));
+        newMinHeapNode->v = v;
+        newMinHeapNode->dist = dist;
+        return newMinHeapNode;
     }
-
-    // A utility function to swap two
-    // nodes of min heap.
-    // Needed for min heapify
-    void swapMinHeapNode(struct MinHeapNode **a,
-                         struct MinHeapNode **b)
+    void swapMinHeapNode(MinHeapNode **a, MinHeapNode **b)
     {
-        struct MinHeapNode *t = *a;
+        MinHeapNode *temp = *a;
         *a = *b;
-        *b = t;
+        *b = temp;
     }
-
-    // A standard function to
-    // heapify at given idx
-    // This function also updates
-    // position of nodes when they are swapped.
-    // Position is needed for decreaseKey()
-    void minHeapify(struct MinHeap *minHeap,
-                    int idx)
+    void MinHeapify(MinHeap *minHeap, int index)
     {
-        int smallest, left, right;
-        smallest = idx;
-        left = 2 * idx + 1;
-        right = 2 * idx + 2;
+        int smallest = index;
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
 
-        if (left < minHeap->size &&
-            minHeap->array[left]->dist <
-                minHeap->array[smallest]->dist)
+        if (left < minHeap->size && minHeap->arr[left]->dist < minHeap->arr[smallest]->dist)
             smallest = left;
-
-        if (right < minHeap->size &&
-            minHeap->array[right]->dist <
-                minHeap->array[smallest]->dist)
+        if (right < minHeap->size && minHeap->arr[right]->dist < minHeap->arr[smallest]->dist)
             smallest = right;
-
-        if (smallest != idx)
+        if (smallest != index)
         {
             // The nodes to be swapped in min heap
-            MinHeapNode *smallestNode =
-                minHeap->array[smallest];
-            MinHeapNode *idxNode =
-                minHeap->array[idx];
+            MinHeapNode *smallestNode = minHeap->arr[smallest];
+            MinHeapNode *idxNode = minHeap->arr[index];
 
             // Swap positions
-            minHeap->pos[smallestNode->v] = idx;
+            minHeap->pos[smallestNode->v] = index;
             minHeap->pos[idxNode->v] = smallest;
 
-            // Swap nodes
-            swapMinHeapNode(&minHeap->array[smallest],
-                            &minHeap->array[idx]);
-
-            minHeapify(minHeap, smallest);
+            swapMinHeapNode(&minHeap->arr[smallest], &minHeap->arr[index]);
+            MinHeapify(minHeap, smallest);
         }
     }
-
-    // A utility function to check if
-    // the given minHeap is ampty or not
-    int isEmpty(struct MinHeap *minHeap)
+    MinHeapNode *extractMin(MinHeap *minHeap)
     {
-        return minHeap->size == 0;
+        MinHeapNode *temp = minHeap->arr[0];
+        minHeap->arr[0] = minHeap->arr[minHeap->size - 1];
+
+        minHeap->pos[temp->v] = minHeap->size - 1;
+        minHeap->pos[minHeap->arr[minHeap->size - 1]->v] = 0;
+
+        minHeap->size--;
+        MinHeapify(minHeap, 0);
+        return temp;
     }
-
-    // Standard function to extract
-    // minimum node from heap
-    struct MinHeapNode *extractMin(struct MinHeap *
-                                       minHeap)
+    void updateKey(MinHeap *minHeap, int v, int dist)
     {
-        if (isEmpty(minHeap))
-            return NULL;
-
-        // Store the root node
-        struct MinHeapNode *root =
-            minHeap->array[0];
-
-        // Replace root node with last node
-        struct MinHeapNode *lastNode =
-            minHeap->array[minHeap->size - 1];
-        minHeap->array[0] = lastNode;
-
-        // Update position of last node
-        minHeap->pos[root->v] = minHeap->size - 1;
-        minHeap->pos[lastNode->v] = 0;
-
-        // Reduce heap size and heapify root
-        --minHeap->size;
-        minHeapify(minHeap, 0);
-
-        return root;
-    }
-
-    // Function to decreasy dist value
-    // of a given vertex v. This function
-    // uses pos[] of min heap to get the
-    // current index of node in min heap
-    void decreaseKey(struct MinHeap *minHeap,
-                     int v, int dist)
-    {
-        // Get the index of v in  heap array
         int i = minHeap->pos[v];
 
-        // Get the node and update its dist value
-        minHeap->array[i]->dist = dist;
+        minHeap->arr[i]->dist = dist; // update v's dist
 
-        // Travel up while the complete
-        // tree is not hepified.
-        // This is a O(Logn) loop
-        while (i && minHeap->array[i]->dist <
-                        minHeap->array[(i - 1) / 2]->dist)
+        while (i && minHeap->arr[i]->dist < minHeap->arr[(i - 1) / 2]->dist)
         {
-            // Swap this node with its parent
-            minHeap->pos[minHeap->array[i]->v] =
-                (i - 1) / 2;
-            minHeap->pos[minHeap->array[(i - 1) / 2]->v] = i;
-            swapMinHeapNode(&minHeap->array[i],
-                            &minHeap->array[(i - 1) / 2]);
+            minHeap->pos[minHeap->arr[i]->v] = minHeap->pos[minHeap->arr[(i - 1) / 2]->v]; // set parent's pos to i's
 
-            // move to parent index
+            minHeap->pos[minHeap->arr[(i - 1) / 2]->v] = i;
+
+            swapMinHeapNode(&minHeap->arr[(i - 1) / 2], &minHeap->arr[i]);
             i = (i - 1) / 2;
         }
     }
 
-    // A utility function to check if a given vertex
-    // 'v' is in min heap or not
-    bool isInMinHeap(struct MinHeap *minHeap, int v)
+    int isInMinHeap(MinHeap *minHeap, int v)
     {
         if (minHeap->pos[v] < minHeap->size)
-            return true;
-        return false;
-    }
-    void printSPT(int *dist, int n)
-    {
-        printf("Vertex          Dist from src\n");
-        for (int i = 0; i < n; i++)
-        {
-            printf("%d\t\t%d\n", i, dist[i]);
-        }
+            return 1;
+        return 0;
     }
     void printPath(int *parent, int j, int *time)
     {
@@ -297,98 +166,61 @@ public:
 
         printf("%d ", j);
     }
-    // The main function that calculates
-    // distances of shortest paths from src to all
-    // vertices. It is a O(ELogV) function
-    int dijkstra(struct Graph *graph, int src)
+    void printSPT(int *dist, int n)
     {
-
-        // Get the number of vertices in graph
-        int V = graph->V;
-
-        // dist values used to pick
-        // minimum weight edge in cut
-        int *dist = new int[V];
-        int *parent = new int[V];
-        // minHeap represents set E
-        struct MinHeap *minHeap = createMinHeap(V);
-
-        // Initialize min heap with all
-        // vertices. dist value of all vertices
-        for (int v = 0; v < V; ++v)
+        printf("Vertex          Dist from src\n");
+        for (int i = 0; i < n; i++)
         {
-            dist[v] = INT_MAX;
-            parent[v] = -1;
-            minHeap->array[v] = newMinHeapNode(v,
-                                               dist[v]);
-            minHeap->pos[v] = v;
+            printf("%d\t\t%d\n", i, dist[i]);
+        }
+    }
+    int DijkstraSPT(Graph *garph, int beginV, int endV)
+    {
+        MinHeap *minHeap = initMinHeap(garph->vertexNum);
+
+        int *dist = (int *)malloc(sizeof(int) * garph->vertexNum);
+        int *parent = (int *)malloc(sizeof(int) * garph->vertexNum);
+
+        for (int i = 0; i < garph->vertexNum; i++)
+        {
+            parent[i] = -1;
+            dist[i] = INT_MAX;
+            minHeap->arr[i] = creatMinHeapNode(i, dist[i]);
+            minHeap->pos[i] = i;
         }
 
-        // Make dist value of src vertex
-        // as 0 so that it is extracted first
-        minHeap->array[src] =
-            newMinHeapNode(src, dist[src]);
-        minHeap->pos[src] = src;
-        dist[src] = 0;
-        decreaseKey(minHeap, src, dist[src]);
+        // begin's weight
+        dist[beginV] = 0;
+        minHeap->arr[0] = creatMinHeapNode(beginV, dist[beginV]);
+        minHeap->pos[beginV] = 0;
+        updateKey(minHeap, beginV, dist[beginV]);
 
-        // Initially size of min heap is equal to V
-        minHeap->size = V;
+        minHeap->size = garph->vertexNum;
 
-        // In the followin loop,
-        // min heap contains all nodes
-        // whose shortest distance
-        // is not yet finalized.
-        while (!isEmpty(minHeap))
+        while (minHeap->size)
         {
-            // Extract the vertex with
-            // minimum distance value
-            struct MinHeapNode *minHeapNode =
-                extractMin(minHeap);
+            MinHeapNode *u = extractMin(minHeap);
 
-            // Store the extracted vertex number
-            int u = minHeapNode->v;
-
-            // Traverse through all adjacent
-            // vertices of u (the extracted
-            // vertex) and update
-            // their distance values
-            struct AdjListNode *pCrawl =
-                graph->array[u].head;
-            while (pCrawl != NULL)
+            for (AdjListNode *v = garph->arr[u->v].head; v != NULL; v = v->next)
             {
-                int v = pCrawl->dest;
-
-                // If shortest distance to v is
-                // not finalized yet, and distance to v
-                // through u is less than its
-                // previously calculated distance
-                if (isInMinHeap(minHeap, v) &&
-                    dist[u] != INT_MAX &&
-                    pCrawl->weight + dist[u] < dist[v])
+                if (isInMinHeap(minHeap, v->v) && dist[u->v] != INT_MAX && dist[v->v] > dist[u->v] + v->weight)
                 {
-                    dist[v] = dist[u] + pCrawl->weight;
-                    parent[v] = u;
-                    // update distance
-                    // value in min heap also
-                    decreaseKey(minHeap, v, dist[v]);
+                    parent[v->v] = u->v;
+                    dist[v->v] = v->weight + dist[u->v];
+                    updateKey(minHeap, v->v, dist[v->v]);
                 }
-                pCrawl = pCrawl->next;
             }
         }
-
-        printSPT(dist, V);
+        printSPT(dist, garph->vertexNum);
         printf("\n");
         int *time = (int *)malloc(sizeof(int));
         *time = 0;
-        printPath(parent, V - 1, time);
+        printPath(parent, garph->vertexNum - 1, time);
         return *time;
     }
-
     int helper(int *arr, int arrSize)
     {
-        struct Graph *graph = createGraph(arrSize);
-
+        Graph *graph = initGraph(arrSize);
         int *visited = (int *)malloc(sizeof(int) * arrSize);
         memset(visited, 0, sizeof(int) * arrSize);
 
@@ -399,7 +231,7 @@ public:
         {
             if (arr[i] != arr[i + 1])
             {
-                addEdge(graph, i, i + 1, 1);
+                addAnEdge(graph, i, i + 1, 1);
             }
 
             for (int j = 0; j < arrSize; j++)
@@ -408,7 +240,7 @@ public:
                 {
                     if (!st.count({i, j}) && !st.count({j, i}))
                     {
-                        addEdge(graph, i, j, 1);
+                        addAnEdge(graph, i, j, 1);
                         // mp.insert(std::make_pair(std::make_pair(i, j), 1));
                         st.insert({i, j});
                         st.insert({j, i});
@@ -416,18 +248,19 @@ public:
                 }
             }
         }
-        // for (int i = 0; i < graph->vertexNum; i++)
-        // {
-        //     AdjListNode *temp = graph->arr[i].head;
-        //     printf("%d->", i);
-        //     while (temp)
-        //     {
-        //         printf("%d->", temp->v);
-        //         temp = temp->next;
-        //     }
-        //     printf("null\n");
-        // }
-        return dijkstra(graph, 0);
+        for (int i = 0; i < graph->vertexNum; i++)
+        {
+            AdjListNode *temp = graph->arr[i].head;
+            printf("%d->", i);
+            while (temp)
+            {
+                printf("%d->", temp->v);
+                temp = temp->next;
+            }
+            printf("null\n");
+        }
+
+        return DijkstraSPT(graph, 0, arrSize - 1);
     }
     int minJumps(std::vector<int> &arr)
     {
