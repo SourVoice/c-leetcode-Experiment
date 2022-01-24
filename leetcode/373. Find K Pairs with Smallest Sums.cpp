@@ -1,4 +1,6 @@
+// 373. 查找和最小的 K 对数字
 
+//优先队列
 #include <iostream>
 #include <vector>
 #include <queue>
