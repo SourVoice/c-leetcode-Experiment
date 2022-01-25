@@ -62,3 +62,53 @@ void mergeSort(int array[], int left, int right)
         merge(array, left, m, right);
     }
 }
+
+//==========================================================================================================================
+void merge(int *array, int start, int mid, int end, int arrSize)
+{
+    int *ans = calloc(arrSize, sizeof(int));
+    int i = start;
+    int j = mid + 1;
+    int k = 0;
+    while (i <= mid && j <= end)
+    {
+        if (array[i] <= array[j])
+        {
+            ans[k++] = array[i++];
+        }
+        else
+        {
+            ans[k++] = array[j++];
+        }
+    }
+    if (i == mid + 1)
+    {
+        while (j <= end)
+        {
+            ans[k++] = array[j++];
+        }
+    }
+    if (j == end + 1)
+    {
+        while (i <= mid)
+        {
+            ans[k++] = array[i++];
+        }
+    }
+    int count = 0;
+    for (i = start; count < k; i++, count++)
+    {
+        array[i] = ans[count];
+    }
+}
+void mergesort(int *array, int start, int end, int arrSize)
+{
+    if (start >= end)
+    {
+        return;
+    }
+    int mid = (start + end) / 2;
+    mergesort(array, start, mid, arrSize);
+    mergesort(array, mid + 1, end, arrSize);
+    merge(array, start, mid, end, arrSize);
+}
