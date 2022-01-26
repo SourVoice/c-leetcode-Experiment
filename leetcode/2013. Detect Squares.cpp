@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 using namespace std;
+//Ç¶Ì×¹þÏ£±í
 class DetectSquares
 {
 public:
