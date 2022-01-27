@@ -9,7 +9,8 @@
 #include <unordered_map>
 #include <strstream>
 #include <sstream> // std::stringstream
-
+#include <regex>
+#include <vector>
 using namespace std;
 class Solution
 {
@@ -75,5 +76,20 @@ public:
             }
         }
         return true;
+    }
+};
+class Solution2
+{
+public:
+    int countValidWords(string sentence)
+    {
+        regex ex("[a-z]*([a-z]-[a-z])?[a-z]*[!,.]?");
+        istringstream ss(sentence);
+        string token;
+        int counter = 0;
+        while (ss >> token)
+            if (regex_match(token, ex))
+                counter++;
+        return counter;
     }
 };
