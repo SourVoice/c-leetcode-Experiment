@@ -4,8 +4,10 @@
 // Topic: Array
 
 #include <vector>
+#include <queue>
 using namespace std;
 
+// dp£º´íÎóµÄ
 class Solution
 {
 public:
@@ -40,6 +42,56 @@ public:
                     tmp.push_back(j);
                     res.push_back(tmp);
                 }
+            }
+        }
+        return res;
+    }
+};
+class Solution
+{
+public:
+    vector<vector<int>> highestPeak(vector<vector<int>> &isWater)
+    {
+        int col = isWater[0].size();
+        int row = isWater.size();
+        queue<pair<int, int>> q;
+
+        vector<vector<int>> res(row, vector<int>(col, -1));
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                if (isWater[i][j] == 1)
+                {
+                    q.push({i, j});
+                    res[i][j] = 0;
+                }
+            }
+        }
+        while (!q.empty())
+        {
+            int x = q.front().first;
+            int y = q.front().second;
+            q.pop();
+            if (x - 1 >= 0 && res[x - 1][y] == -1)
+            {
+                res[x - 1][y] = res[x][y] + 1;
+                q.push({x - 1, y});
+            }
+            if (x + 1 < row && res[x + 1][y] == -1)
+            {
+                res[x + 1][y] = res[x][y] + 1;
+                q.push({x + 1, y});
+            }
+            if (y - 1 >= 0 && res[x][y - 1] == -1)
+            {
+                res[x][y - 1] = res[x][y] + 1;
+                q.push({x, y - 1});
+            }
+            if (y + 1 < col && res[x][y + 1] == -1)
+            {
+                res[x][y + 1] = res[x][y] + 1;
+                q.push({x, y + 1});
             }
         }
         return res;
