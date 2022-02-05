@@ -23,8 +23,43 @@ public:
     }
 };
 
-// C语言计数
+//索引哈希表
 class Solution2
+{
+public:
+    int firstUniqChar(string s)
+    {
+        unordered_map<int, int> position;
+        int n = s.size();
+        for (int i = 0; i < n; ++i)
+        {
+            if (position.count(s[i]))
+            {
+                position[s[i]] = -1;
+            }
+            else
+            {
+                position[s[i]] = i;
+            }
+        }
+        int first = n;
+        for (auto [_, pos] : position)
+        {
+            if (pos != -1 && pos < first)
+            {
+                first = pos;
+            }
+        }
+        if (first == n)
+        {
+            first = -1;
+        }
+        return first;
+    }
+};
+
+// C语言计数
+class Solution3
 {
 public:
     int firstUniqChar(char *s)
