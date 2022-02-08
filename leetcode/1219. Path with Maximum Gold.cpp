@@ -1,5 +1,6 @@
 // 1219. 黄金矿工
 #include <vector>
+#include <functional>
 using namespace std;
 
 //回溯问题模板
@@ -46,5 +47,45 @@ public:
             }
         }
         return max_gold;
+    }
+};
+
+//回溯lambda写法
+class Solution2
+{
+    static constexpr int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+public:
+    int getMaximumGold(vector<vector<int>> &grid)
+    {
+        int m = grid.size(), n = grid[0].size();
+        int ans = 0;
+        function<void(int, int, int)> dfs = [&](int x, int y, int gold)
+        {
+            gold += grid[x][y];
+            ans = max(ans, gold);
+            int rec = grid[x][y];
+            grid[x][y] = 0;
+
+            for (auto &dir : dirs)
+            {
+                int nx = x + dir[0], ny = y + dir[1];
+                if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] > 0)
+                {
+                    dfs(nx, ny, gold);
+                }
+            }
+            grid[x][y] = rec;
+        };
+
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                dfs(i, j, 0);
+            }
+        }
+
+        return ans;
     }
 };
