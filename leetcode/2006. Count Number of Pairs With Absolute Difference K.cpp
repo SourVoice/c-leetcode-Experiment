@@ -31,13 +31,12 @@ class Solution2
 public:
     int countKDifference(vector<int> &nums, int k)
     {
-        multiset<pair<int, int>> st;
         unordered_map<int, int> mp;
         int ans = 0, n = nums.size();
         for (auto &num : nums)
         {
-            ans += mp.count(mp[num - k]) ? mp[num - k] : 0; // j之前i的数量
-            ans += mp.count(mp[num + k]) ? mp[num + k] : 0;
+            ans += (mp.count(num - k) ? mp[num - k] : 0); // j之前i的数量
+            ans += (mp.count(num + k) ? mp[num + k] : 0);
             mp[num]++;
         }
         return ans;
