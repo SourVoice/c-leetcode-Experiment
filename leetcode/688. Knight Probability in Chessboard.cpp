@@ -64,7 +64,7 @@ public:
 };
 
 //记忆化搜索
-class Solution2
+class Solution3
 {
 public:
     vector<vector<int>> dirs = {{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
@@ -75,7 +75,7 @@ public:
     }
 
     //观察递归方法的签名：public double dfs(int n, int k, int i, int j)，里面有三个可变的因素：i、j、k，
-    double dfs(int n, int k, int row, int col, vector<vector<vector<double>>> dp)
+    double dfs(int n, int k, int row, int col, vector<vector<vector<double>>> &dp)
     {
         if (row < 0 || row >= n || col < 0 || col >= n)
             return 0;
@@ -83,7 +83,7 @@ public:
             return 1;
 
         // 缓存中存在，直接返回
-        if (dp[row][col][k] > 0)
+        if (dp[row][col][k] != 0)
         {
             return dp[row][col][k];
         }
