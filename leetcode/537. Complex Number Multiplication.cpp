@@ -2,6 +2,9 @@
 
 #include <string>
 #include <string.h>
+#include <sstream>
+#include <functional>
+#include <complex>
 using namespace std;
 
 class Solution
@@ -77,5 +80,25 @@ public:
         int real = real1 * real2 - image1 * image2;
         int image = real1 * image2 + real2 * image1;
         return to_string(real) + "+" + to_string(image) + "i";
+    }
+};
+
+// sstringstream+complex
+class Solution3
+{
+public:
+    string complexNumberMultiply(string num1, string num2)
+    {
+        function<complex<int>(string)> getComplex = [&](string str)
+        {
+            stringstream ss(str);
+            int real = 0, image = 0;
+            char c;
+            ss >> real >> c >> image;
+            return complex<int>(real, image);
+        };
+
+        auto ans = getComplex(num1) * getComplex(num2);
+        return to_string(ans.real()) + "+" + to_string(ans.imag()) + "i";
     }
 };
