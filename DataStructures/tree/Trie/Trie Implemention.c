@@ -1,13 +1,14 @@
 // Trie's implementation by c(×ÖµäÊ÷)
 #include <stdbool.h>
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
 #define ALPHABET_SIZE 26 // next letter may contains most 26 alpha
 #define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
 
 struct TrieNode
 {
-    struct TireNode *children[ALPHABET_SIZE];
+    struct TrieNode *children[ALPHABET_SIZE];
     bool isEndOfWord;
 };
 // retyrb new TrieNode
@@ -27,15 +28,15 @@ struct TrieNode *getNode(void)
 }
 
 // insert a word into Trie
-void insert(struct TrieNode *root, const char *key)
+void insert(struct TrieNode *root, const char *word)
 {
     int level;
-    int length = strlen(key);
+    int length = strlen(word);
     int index;
     struct TrieNode *pCrawl = root;
     for (level = 0; level < length; level++)
     {
-        index = key[level] - 'a';
+        index = word[level] - 'a';
         if (!pCrawl->children[index])
             pCrawl->children[index] = getNode();
         pCrawl = pCrawl->children[index];
