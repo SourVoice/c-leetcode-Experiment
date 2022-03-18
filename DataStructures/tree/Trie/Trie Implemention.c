@@ -3,6 +3,8 @@
 #include <stdio.h>
 
 #define ALPHABET_SIZE 26 // next letter may contains most 26 alpha
+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+
 struct TrieNode
 {
     struct TireNode *children[ALPHABET_SIZE];
