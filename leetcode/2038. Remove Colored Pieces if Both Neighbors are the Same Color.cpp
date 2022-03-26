@@ -11,14 +11,13 @@ public:
     {
         int count = 0;
         int n = colors.size();
-        for (int i = 0; i < n - 2; i++)
+        for (int i = 1; i < n - 1; i++)
         {
-            if (colors.substr(i, i + 3) == "AAA")
+            if (colors[i - 1] == 'A' && colors[i] == 'A' && colors[i + 1] == 'A')
                 count++;
-            if (colors.substr(i, i + 3) == "BBB")
+            if (colors[i - 1] == 'B' && colors[i] == 'B' && colors[i + 1] == 'B')
                 count--;
-            ;
         }
-        return count;
+        return count > 0;
     }
 };
