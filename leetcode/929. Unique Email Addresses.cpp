@@ -1,4 +1,5 @@
 // 929. 独特的电子邮件地址
+#include <regex>
 #include <vector>
 #include <string>
 #include <set>
@@ -20,6 +21,20 @@ public:
             if (s.count(newEmail) == 0)
                 s.insert(newEmail);
         }
+        return s.size();
+    }
+};
+
+// 正则
+class Solution
+{
+public:
+    int numUniqueEmails(vector<string> &emails)
+    {
+        set<string> s;
+        regex r("(?:\\.)(?=.*@)|(?:\\+.*)(?=@)");
+        for (auto &e : emails)
+            s.insert(regex_replace(e, r, ""));
         return s.size();
     }
 };
