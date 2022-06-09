@@ -11,7 +11,7 @@
         "-fexec-charset=utf-8", //输出编码(必须和终端编码保持一致)
         "${file}",
         "-o",
-        "D:\\workstation\\VSCode_for_c\\c_programming\\exe\\${fileBasenameNoExtension}.exe"
+        "${fileWorkspaceFolder}\\exe\\${fileBasenameNoExtension}.exe"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -42,6 +42,11 @@
         "isDefault": true
       },
       "detail": "调试器生成的任务。"
+    },
+    {
+      "label": "echo",
+      "type": "shell",
+      "command": "echo ${workspaceFolder}"
     }
   ]
 }
