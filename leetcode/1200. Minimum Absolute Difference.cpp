@@ -1,5 +1,6 @@
 // 1200. 最小绝对差
 #include <vector>
+#include <algorithm>
 using namespace std;
 // 模拟
 class Solution
