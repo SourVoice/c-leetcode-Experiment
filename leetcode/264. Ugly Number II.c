@@ -8,7 +8,7 @@ int nthUglyNumber(int n)
     int p2 = 1;
     int p3 = 1;
     int p5 = 1;
-    for (int i = 0; i <= n; i++)
+    for (int i = 2; i <= n; i++)
     {
         int num2 = dp[p2] * 2; //下一个丑数
         int num3 = dp[p3] * 3; //
