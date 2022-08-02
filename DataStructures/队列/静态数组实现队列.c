@@ -35,5 +35,5 @@ int is_empty(void)
 
 int is_full(void)
 {
-    return (rear + 2) % ARRAY_SIZE == QUEUE_SIZE;
+    return (rear + 2) % ARRAY_SIZE == front;
 }
