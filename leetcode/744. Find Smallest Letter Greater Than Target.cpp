@@ -32,3 +32,20 @@ public:
         return left>=n? letters[0]: letters[left];
    }
 };
+class Solution
+{
+public:
+    char nextGreatestLetter(vector<char> &letters, char target)
+    {
+        int left = 0, n = letters.size(), right = n;
+        while (left < right)
+        {
+            int mid = (right - left) / 2 + left, ret = letters[mid];
+            if (ret <= target)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        return letters[left % n];
+    }
+};
