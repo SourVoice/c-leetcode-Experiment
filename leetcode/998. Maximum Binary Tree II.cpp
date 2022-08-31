@@ -50,3 +50,31 @@ public:
         return nullptr;
     }
 };
+// 模拟
+class Solution
+{
+public:
+    TreeNode *insertIntoMaxTree(TreeNode *root, int val)
+    {
+        TreeNode *cur = root;
+        TreeNode *prev = nullptr;
+        while (cur)
+        {
+            if (val > cur->val)
+            {
+                if (prev == nullptr) //一开始根节点就小于val
+                    return new TreeNode(val, root, nullptr);
+                TreeNode *node = new TreeNode(val, cur, nullptr);
+                prev->right = node;
+                return root;
+            }
+            else
+            {
+                prev = cur;
+                cur = cur->right;
+            }
+        }
+        prev->right = new TreeNode(val, nullptr, nullptr);
+        return root;
+    }
+};
