@@ -1,53 +1,13 @@
-exe/3.exe
-exe/7. ReverseInteger.exe
-exe/7.Reverse Integer.exe
-exe/7ReverseInteger.exe
-exe/9.Palindrome Number.exe
-exe/13. Roman to Intege.exe
-exe/205.exe
-exe/206.exe
-exe/1734. Decode XORed Permutation.exe
-exe/递归解链表的反转.exe
-exe/ccf.exe
-exe/ccf202006-1.exe
-exe/cos.exe
-exe/es.exe
-exe/list_reverse.exe
-exe/p++.exe
-exe/print.exe
-exe/test_for_switch.exe
-exe/test.exe
-.vscodebackup/c_cpp_properties.json
-.vscodebackup/launch.json
 .vscodebackup/settings.json
 .vscodebackup/tasks.json
-exe/递归解链表的反转.exe
 tests_for_grammer/power_function.cpp
 tests_for_grammer/test_for_switch.c
 genericity泛型/堆栈的泛型模拟.c
-exe/create_and_delet.exe
-exe/删除重复元素.exe
-exe/折半查找.exe
-exe/d.exe
-exe/ee.exe
-exe/find.exe
 .vscode backup/c_cpp_properties.json
 .vscode backup/launch.json
 .vscode backup/settings.json
 .vscode backup/tasks.json
 Experiment10HuffmanTree/reference.md
-exe/1146.exe
-exe/GraphByAdjacencyList.exe
-exe/header.exe
-exe/shengbin.exe
-exe/yanghui.exe
-exe/Disjoint Set Or Union-Find .exe
-exe/Disjoint Set Or Union-Find.exe
-exe/DisjointSetOrUnion-Find.exe
-exe/Kruskal MinimumSpanningTreeAlgorithm.exe
-exe/Kruskal’s Minimum Spanning Tree Algorithm.exe
-exe/Prim Mst algorithm(AdjacencyMatrix).exe
-exe/Kruskal’s Minimum Spanning Tree Algorithm.exe
 tests_for_grammer/8.cpp
 tests_for_grammer/438. Find All Anagrams in a String.md
 tests_for_grammer/506.md
@@ -62,12 +22,6 @@ tests_for_grammer/test2.c
 tests_for_grammer/Untitled-1.ini
 tests_for_grammer/yanghui.cpp
 tests_for_grammer/yuanjiahao.cpp
-exe/1816. Truncate Sentence.exe
-exe/Dijkstra shortest path algorithm .exe
-exe/Dijkstra shortest path algorithm(AdjacencyList).exe
-exe/Kruskal’s Minimum Spanning Tree Algorithm.exe
-exe/Prim MST algorithm(AdjacencyList).exe
-exe/Topological Sorting.exe
 math/deom.wlnb
 math/ma.md
 math/mathSolt.ipynb
@@ -103,18 +57,7 @@ SunShineGroup/SunInTheUniverse.png
 tests_for_grammer/backup.c
 tests_for_grammer/backup.c
 tests_for_grammer/IOCCC1.c
-exe/Floyd_Warshell Algorithm(AdjacencyMatrix).exe
-exe/Floyd-Warshell Algorithm(AdjacencyMatrix).exe
-exe/FloydWarshell Algorithm(AdjacencyMatrix).exe
-exe/FloydWarshell Path reconstruction.exe
-exe/IOCCC1.exe
-exe/Kruskal’s Minimum Spanning Tree Algorithm.exe
 tests_for_grammer/floydWarshell.java
-exe/Kruskal’s Minimum Spanning Tree Algorithm.exe
-exe/1.exe
-exe/KeyPath IN AOE Net.exe
-exe/Longest Path Algorithm.exe
-exe/LongestPath.exe
 .VSCodeCounter/2021-10-30_23-45-32/details.md
 .VSCodeCounter/2021-10-30_23-45-32/results.csv
 .VSCodeCounter/2021-10-30_23-45-32/results.md
@@ -128,7 +71,6 @@ math/mathSolt.ipynb
 .VSCodeCounter/2021-10-30_23-45-32/results.csv
 .VSCodeCounter/2021-10-30_23-45-32/results.md
 .VSCodeCounter/2021-10-30_23-45-32/results.txt
-exe/file.exe
 .VSCodeCounter/2021-10-30_23-45-32/details.md
 .VSCodeCounter/2021-10-30_23-45-32/results.csv
 .VSCodeCounter/2021-10-30_23-45-32/results.md
@@ -137,16 +79,8 @@ exe/file.exe
 .VSCodeCounter/2021-12-17_19-13-14/results.csv
 .VSCodeCounter/2021-12-17_19-13-14/results.md
 .VSCodeCounter/2021-12-17_19-13-14/results.txt
-exe/Binary Search Tree.exe
-exe/Disjoint Set Union by Rank.exe
-exe/GraphByAdjacency.exe
-exe/h3.exe
-exe/Binary Search Algo.exe
-exe/h4.exe
-exe/leetcode1078.exe
 tests_for_grammer/leetcode1078.c
 tests_for_grammer/strcatFun.c
-exe/825. Friends Of Appropriate Ages.exe
 SunShineGroup/DashChart.png
 SunShineGroup/SunInSolarSystem.png
 SunShineGroup/SunInTheUniverse.png
@@ -197,9 +131,19 @@ Other/Test/test2.c
 Other/Test/Untitled-1.ini
 Other/Test/yanghui.cpp
 Other/Test/yuanjiahao.cpp
-exe/艾尔登法环.exe
-exe/艾尔登法环.exe
-exe/艾尔登法环.exe
-exe/艾尔登法环.exe
-Other/Funny/艾尔登法环.c
-exe/艾尔登法环.exe
+Other/Test/cs144_lab2.cpp
+Other/Test/department.sql
+Other/Test/my.sql
+Other/Test/subset.cpp
+exe/*
+Other\Test\*.*
+Other\Test\??.drawio
+Other\Test\??.png
+Other\Test\random.cpp
+Other\Test\striingop.cpp
+Other/Test/??.drawio
+Other/Test/??.png
+Other/Test/random.cpp
+Other/Test/striingop.cpp
+Other/Test/??.drawio
+Other/Test/??.png
