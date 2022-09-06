@@ -39,7 +39,7 @@ public:
         return false;
     }
 };
-// TODO: Ë«Ö¸Õë
+// Ë«Ö¸Õë
 class Solution
 {
 public:
