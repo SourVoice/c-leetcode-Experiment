@@ -39,3 +39,23 @@ public:
         return false;
     }
 };
+// TODO: Ë«Ö¸Õë
+class Solution
+{
+public:
+    bool judgeSquareSum(int c)
+    {
+        int left = 0, right = sqrt(c);
+        while (left <= right)
+        {
+            long long x = static_cast<long>(left * left) + static_cast<long>(right * right);
+            if (x < c)
+                left++;
+            else if (x > c)
+                right--;
+            else
+                return true;
+        }
+        return false;
+    }
+};
