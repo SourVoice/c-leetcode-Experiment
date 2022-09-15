@@ -18,7 +18,6 @@ public:
         {
             for (int i = 0; i < k; i++)
                 s[removable[i]] = 0; //根据子序列定义, 我们可以设置一个无意义字符
-            // if(k==1) cout<<s<<endl;
             int p_pos = 0, s_pos = 0;
             while (p_pos < p.size() && s_pos < s.size())
             {
@@ -35,7 +34,6 @@ public:
             if (check(s, p, removable, mid))
             {
                 l = mid + 1;
-                // if(mid==1) cout<<l<<" "<<r<<endl;
                 ret = max(ret, mid);
             }
             else
