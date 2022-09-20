@@ -1,8 +1,14 @@
 // 436. 寻找右区间
-#include <map>
 #include <vector>
-#include <iostream>
 #include <unordered_map>
+#include <unordered_set>
+#include <cmath>
+#include <set>
+#include <map>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <numeric>
 using namespace std;
 
 // 哈希表
@@ -28,5 +34,27 @@ public:
         return ans;
     }
 };
-
-// 双指针
+// 二分查找
+class Solution
+{
+public:
+    vector<int> findRightInterval(vector<vector<int>> &intervals)
+    {
+        vector<pair<vector<int>, int>> vec;
+        int n = intervals.size();
+        for (int i = 0; i < n; i++)
+            vec.push_back({intervals[i], i});
+        sort(begin(vec), end(vec), [&](const auto &a, const auto &b)
+             { return a.first[0] < b.first[0]; });
+        vector<int> ans(n, -1);
+        for (int i = 0; i < n; i++)
+        {
+            auto it = upper_bound(vec.begin(), vec.end(), intervals[i][1],
+                                  [&](auto a, const pair<vector<int>, int> &b)
+                                  { return a <= b.first[0]; });
+            if (it != vec.end())
+                ans[i] = (*it).second;
+        }
+        return ans;
+    }
+};
