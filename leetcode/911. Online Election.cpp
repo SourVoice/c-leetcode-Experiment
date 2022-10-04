@@ -53,7 +53,7 @@ public:
             {
                 top = p;
             }
-            tops.push_back(top); // 记录此刻票数最多的候选人编号
+            tops.emplace_back(top); // 记录此刻票数最多的候选人编号
         }
         this->times = times;
     }
