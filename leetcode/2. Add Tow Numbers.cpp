@@ -1,7 +1,68 @@
-#include <stdio.h>
+#include <vector>
+#include <unordered_map>
+#include <map>
+#include <unordered_set>
+#include <set>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <numeric>
+#include <list>
+using namespace std;
 /**
  * Definition for singly-linked list.
  */
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+// 递归
+class Solution
+{
+public:
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+    {
+        int sum = 0;
+        ListNode *ret = new ListNode;
+        if (!l1 && !l2)
+        {
+            if (carry)
+            {
+                ret->val = 1;
+                carry = 0;
+                ret->next = addTwoNumbers(l1 != nullptr ? l1->next : l1, l2 != nullptr ? l2->next : l2);
+                return ret;
+            }
+            return nullptr;
+        }
+        if (l1)
+            sum += l1->val;
+        if (l2)
+            sum += l2->val;
+        sum += carry;
+        if (sum > 9)
+        {
+            ret->val = sum % 10;
+            carry = 1;
+            ret->next = addTwoNumbers(l1 != nullptr ? l1->next : l1, l2 != nullptr ? l2->next : l2); // 只有当节点不为空我们才进行传递
+            return ret;
+        }
+        ret->val = sum;
+        carry = 0;
+        ret->next = addTwoNumbers(l1 != nullptr ? l1->next : l1, l2 != nullptr ? l2->next : l2);
+        return ret;
+    }
+
+private:
+    int carry = 0;
+};
+// TODO: 模拟
+
+// 曾经C语言解法
 typedef struct LINK
 {
     int val;
