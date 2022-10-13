@@ -36,3 +36,22 @@ public:
         return head;
     }
 };
+// È¡µØÖ·
+class Solution
+{
+public:
+    ListNode *deleteDuplicates(ListNode *head)
+    {
+        ListNode **p = &head;
+        ListNode *a, *b;
+
+        while ((a = *p) && (b = a->next))
+        {
+            if (b->val == a->val)
+                a->next = b->next;
+            else
+                p = &(a->next);
+        }
+        return head;
+    }
+};
