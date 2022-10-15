@@ -114,7 +114,7 @@ struct TreeNode *searchTree(struct TreeNode *root, int key)
         if (root->key == key)
         {
             int height = TreeHeight(root);
-            printf("%d\n", height);
+            printf("\n%d\n", height);
         }
         return root;
     }

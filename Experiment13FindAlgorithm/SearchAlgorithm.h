@@ -3,51 +3,45 @@
 #include "hash.h"
 #include "BST.h"
 
+int compare_ints(const void *a, const void *b)
+{
+    return (*(int *)a - *(int *)b);
+    // return (arg1 > arg2) - (arg1 < arg2); // possible shortcut
+    // return arg1 - arg2; // erroneous shortcut (fails if INT_MIN is present)
+}
+
 int binarySearch(int *nums, int numsSize, int target)
 {
-    int right = numsSize - 1, left = 0;
-    int mid = numsSize / 2;
+    int l = 0, r = numsSize - 1;
+    qsort(nums, numsSize, sizeof(int), compare_ints);
     int *progress;
     int i = 0;
     int flag = 0;
     progress = (int *)malloc(numsSize * sizeof(int));
-    while (left <= right)
+    while (l < r)
     {
-        mid = left + (right - left) / 2; //防止溢出(right+left/2会可能溢出)
-        if (target < nums[mid])
-        {
-            right = mid - 1;
-            progress[i] = nums[mid];
-            i++;
-        }
-        else if (target > nums[mid])
-        {
-            left = mid + 1;
-            progress[i] = nums[mid];
-            i++;
-        }
-        else if (nums[mid] == target)
-        {
-            printf("%d\n", mid);
-            progress[i] = nums[mid];
-            flag = 1;
-            break;
-        }
+        int mid = ((r - l) >> 1) + l;
+        if (nums[mid] < target)
+            l = mid + 1;
+        else
+            r = mid;
     }
-    if (nums[mid] != target)
+    if (nums[l] != target)
+    {
         printf("no\n");
-    for (int j = 0; j < i; j++)
-    {
-        printf(",%d" + !j, progress[j]);
+        return -1;
     }
+    for (int j = 0; j < i; j++)
+        printf(",%d" + !j, progress[j]);
     if (flag)
         printf(",%d", progress[i]);
 
-    printf("\n%d", mid); // return index
+    printf("\nindex: %d", l); // return index
+    return l;
 }
-int hashWay(int *nums, int numsSize, int target)
+int *hashWay(int *nums, int numsSize, int target)
 {
-    int *returnIndex = (int *)malloc(sizeof(int));
+    int *returnIndex = (int *)malloc(sizeof(int) * 2);
     MyHashMap *hashMap = creatHash();
     for (int i = 0; i < numsSize; i++)
     {
@@ -56,7 +50,7 @@ int hashWay(int *nums, int numsSize, int target)
         if (p)
         { //若被散射到
             returnIndex[0] = p->key;
-            returnIndex[1] = i;
+            returnIndex[1] = p->val;
             return returnIndex;
         }
         else
@@ -66,7 +60,7 @@ int hashWay(int *nums, int numsSize, int target)
         }
     }
     printf("error");
-    return 0;
+    return NULL;
 }
 
 void BST(int *data, int numsSize, int target) // Binary Search Tree

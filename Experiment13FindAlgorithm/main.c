@@ -1,54 +1,62 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include <time.h>
 #include "SearchAlgorithm.h"
 
-#define MAX_SIZE 100000;
+#define MAX_SIZE 100000
 int main()
 {
-    int choose = 1;
-
     // input elem
-    int *arr = (int *)malloc(sizeof(int) * 100000);
-    int arrSize = 0;
+    int *arr = (int *)malloc(sizeof(int) * MAX_SIZE);
     printf("Spaning 100 random nums:\n");
     int lineNum = 1;
     srand(time(NULL));
 
-    for (int i = 0; i < 100; i++)
+    int arrSize = 100;
+    for (int i = 1; i <= 100; i++)
     {
-        arr[i] = rand();
-        printf(",%d" + (i % 10 == 0) ? 1 : 0, arr[i]);
+        arr[i - 1] = rand();
+        printf(", %d" + ((!(i == 1) && (i % 10)) ? 0 : 2), arr[i - 1]);
         lineNum++;
         if (!(lineNum % 10))
             printf("\n");
     }
 
-    int *temp = (int *)malloc(sizeof(int) * arrSize);
+    int *temp = (int *)malloc(sizeof(int) * MAX_SIZE);
     int target = 0;
+    int choose = 1;
     while (choose)
     {
+        printf("\n");
         printf("input what you want to search:");
         scanf("%d", &target);
-        printf("input which way you want to use for search:");
-
         printf("input 1: Binary Search\n");
         printf("input 2: HashMap Search\n");
         printf("input 3: BST\n");
         printf("input 0: exit\n");
+        printf("input which way you want to use for search:");
+        scanf("%d", &choose);
+
+        if (isalpha(choose))
+            choose = 0;
         if (choose == 1)
         {
-            temp = strcpy(temp, arr);
-            printf("%d", binarySearch(temp, 100, target));
+            memcpy(temp, arr, sizeof(int) * arrSize);
+            printf("%d", binarySearch(temp, arrSize, target));
         }
         else if (choose == 2)
         {
-            temp = strcpy(temp, arr);
-            printf("%d", hashWay(temp, 100, target));
+            memcpy(temp, arr, sizeof(int) * arrSize);
+            int *returnArr = NULL;
+            returnArr = hashWay(temp, arrSize, target);
+            if (!returnArr)
+                continue;
+            printf("index = %d, val = %d ", returnArr[0], returnArr[1]);
         }
         else if (choose == 3)
         {
-            temp = strcpy(temp, arr);
+            memcpy(temp, arr, sizeof(int) * arrSize);
             BST(temp, 100, target);
         }
         else if (choose == 0)

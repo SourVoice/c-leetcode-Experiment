@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <math.h>
+
 #define HashSize 100007
 
 typedef struct list
@@ -22,11 +25,12 @@ void hashInsert(List *head, int key, int val)
 }
 List *hashFind(List *head, int val)
 {
-    for (List *this = head; this->next; this = this->next)
+    List *node = (List *)malloc(sizeof(List));
+    for (node = head; node->next; node = node->next)
     {
-        if (this->next->val == val)
+        if (node->next->val == val)
         {
-            return this->next;
+            return node->next;
         }
     }
     return NULL;
@@ -35,7 +39,7 @@ List *hashFind(List *head, int val)
 MyHashMap *creatHash()
 {
     MyHashMap *newhash = (MyHashMap *)malloc(sizeof(MyHashMap));
-    newhash->data = malloc(sizeof(List) * HashSize);
+    newhash->data = (List *)malloc(sizeof(List) * HashSize);
     for (int i = 0; i < HashSize; i++)
     {
         newhash->data[i].val = 0;
