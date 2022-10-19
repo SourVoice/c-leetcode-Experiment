@@ -51,3 +51,24 @@ public:
         return ans;
     }
 };
+// ¶þË¢
+class Solution2
+{
+public:
+    vector<vector<string>> groupAnagrams(vector<string> &strs)
+    {
+        int n = strs.size();
+        unordered_map<string, vector<string>> mp;
+        vector<vector<string>> ans;
+        for (auto &str : strs)
+        {
+            string key(26, 0);
+            for (auto &ch : str)
+                key[ch - 'a'] += 1;
+            mp[key].push_back(str);
+        }
+        for (auto &[_, vec] : mp)
+            ans.push_back(vec);
+        return ans;
+    }
+};
