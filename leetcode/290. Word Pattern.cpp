@@ -1,5 +1,6 @@
 // 290. 单词规律
 #include <unordered_map>
+#include <set>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -41,6 +42,38 @@ public:
             }
         }
         if (ss >> word)
+            return false;
+        return true;
+    }
+};
+// 二刷;哈希表+ 集合
+class Solution
+{
+public:
+    bool wordPattern(string pattern, string s)
+    {
+        unordered_map<char, string> mp;
+        set<string> cnt;
+        stringstream ss(s);
+        string word = "";
+        int i = 0;
+        while (ss >> word)
+        {
+            char ch = pattern[i];
+            if (!mp.count(ch))
+            {
+                if (cnt.count(word))
+                    return false;
+                mp[ch] = word, cnt.emplace(word);
+            }
+            else
+            {
+                if (mp[ch] != word)
+                    return false;
+            }
+            i++;
+        }
+        if (i < pattern.size())
             return false;
         return true;
     }
