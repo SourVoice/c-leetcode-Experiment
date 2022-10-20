@@ -67,3 +67,32 @@ public:
         return s.substr(substr_start, substr_end - substr_start + 1);
     }
 };
+// 三刷, 动态规划
+class Solution
+{
+public:
+    string longestPalindrome(string s)
+    {
+        int n = s.size();
+        vector<vector<int>> dp(n, vector<int>(n, 0)); // [i][j] form i to j is true
+        dp[0][0] = 1;
+        int substr_start = 0, substr_end = 0;
+        int substr_len = 0;
+        for (int j = 0; j < n; j++)
+        {
+            for (int i = 0; i < j; i++)
+            {
+                if (s[i] == s[j] && (dp[i + 1][j - 1] == 1 || j - i < 2))
+                {
+                    if (j - i + 1 > substr_len)
+                    {
+                        substr_start = i, substr_end = j;
+                        substr_len = j - i + 1;
+                    }
+                    dp[i][j] = 1;
+                }
+            }
+        }
+        return s.substr(substr_start, substr_len);
+    }
+};
