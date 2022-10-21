@@ -4,14 +4,14 @@
 using namespace std;
 /**
  * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
  */
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 //哈希表法:
-
 class Solution
 {
 public:
@@ -54,3 +54,23 @@ public:
         return pA;
     }
 };
+// 二刷;双指针
+class Solution2
+{
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+    {
+        ListNode *pa = headA, *pb = headB;
+        while (pa != pb) // 到头就重新遍历
+        {
+            pa = pa ? pa->next : headA;
+            pb = pb ? pb->next : headB;
+        }
+        return pa;
+    }
+};
+/*
+1->2->3->4->
+            5->6->
+2->3->5--->
+*/
