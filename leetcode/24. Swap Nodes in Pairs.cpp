@@ -28,14 +28,7 @@ public:
     {
         if (head == nullptr || head->next == nullptr)
             return head;
-        return helper(head);
-    }
-    ListNode *helper(ListNode *&head)
-    {
-        if (head == nullptr || head->next == nullptr)
-            return nullptr;
-        ListNode *node = new ListNode;
-        node = head->next;
+        ListNode *node = head->next;
         head->next = swapPairs(node->next);
         node->next = head;
         return node;
@@ -55,6 +48,24 @@ public:
             b->next = a;
             *(shaobing) = b;
             shaobing = &(a->next);
+        }
+        return head;
+    }
+};
+// 二刷,取头节点地址, 之后更新地址
+class Solution
+{
+public:
+    ListNode *swapPairs(ListNode *head)
+    {
+        ListNode **pp = &head;
+        ListNode *a = head, *b = head;
+        while ((a = *pp) && (b = a->next))
+        {
+            a->next = b->next;
+            b->next = a;
+            *pp = b;
+            pp = &(a->next);
         }
         return head;
     }
