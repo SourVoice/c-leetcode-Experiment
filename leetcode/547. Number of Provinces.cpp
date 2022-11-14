@@ -72,3 +72,38 @@ private:
     int n;
     vector<int> father;
 };
+// dfs
+class Solution
+{
+public:
+    int findCircleNum(vector<vector<int>> &isConnected)
+    {
+        int n = isConnected.size();
+        vector<int> visited(n, 0);
+        int provience = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (!visited[i])
+            {
+                visited[i] = 1;
+                dfs(isConnected, visited, i);
+                provience++;
+            }
+        }
+        return provience;
+    }
+    void dfs(vector<vector<int>> &isConnected, vector<int> &visited, int i)
+    {
+        for (int j = 0; j < isConnected.size(); j++)
+        {
+            if (isConnected[i][j] && !visited[j])
+            {
+                visited[j] = 1;
+                dfs(isConnected, visited, j);
+            }
+        }
+    }
+
+private:
+    vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+};
