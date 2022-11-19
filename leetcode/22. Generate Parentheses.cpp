@@ -40,7 +40,7 @@ public:
         vector<string> ans;
         function<void(int, int, int, string)> dfs = [&](int left, int right, int n, string str)
         {
-            if (right < 0 || left < 0 || right< left)//¼ôÖ¦
+            if (right < 0 || left < 0 || right < left) //¼ôÖ¦
                 return;
             if (right == 0 && left == 0)
             {
@@ -51,6 +51,29 @@ public:
             if (left > 0)
                 dfs(left - 1, right, n, str + '(');
             if (right > 0)
+                dfs(left, right - 1, n, str + ')');
+        };
+        dfs(n, n, n, "");
+        return ans;
+    }
+};
+// ÓÅ»¯;¶þË¢
+class Solution2
+{
+public:
+    vector<string> generateParenthesis(int n)
+    {
+        vector<string> ans;
+        function<void(int, int, int, string)> dfs = [&](int left, int right, int n, string str)
+        {
+            if (right == 0 && left == 0)
+            {
+                ans.push_back(str);
+                return;
+            }
+            if (left > 0)
+                dfs(left - 1, right, n, str + '(');
+            if (right > 0 && right > left)
                 dfs(left, right - 1, n, str + ')');
         };
         dfs(n, n, n, "");
