@@ -23,7 +23,7 @@ public:
     {
         int m = word1.size(), n = word2.size();
         vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0)); // 0, i和0, j的字符串相等所需要的最少的次数
-        for (int i = 0; i <= m; i++)                          //
+        for (int i = 0; i <= m; i++)                          // 极端情况(word2为空)根据dp数组的含义进行初始化
             dp[i][0] = i;
         for (int i = 0; i <= n; i++)
             dp[0][i] = i;
