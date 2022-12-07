@@ -4,7 +4,7 @@
     {
       "type": "cppbuild",
       "label": "C/C++: gcc.exe 生成活动文件",
-      "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe",
+      "command": "D:\\workstation\\mingw64\\bin\\gcc.exe",
       "args": [
         "-g",
         "-finput-charset=GBK", //文件编码
@@ -16,14 +16,16 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "group": "build",
-      "detail": "编译器: D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\gcc.exe"
+      "detail": "编译器: D:\\workstation\\mingw64\\bin\\gcc.exe"
     },
     {
       "type": "cppbuild",
       "label": "C/C++: g++.exe 生成活动文件",
-      "command": "D:\\workstation\\VSCode_for_c\\c_path\\mingw64\\bin\\g++.exe",
+      "command": "D:\\workstation\\mingw64\\bin\\g++.exe",
       "args": [
         "-fdiagnostics-color=always",
         "-g",
@@ -36,7 +38,9 @@
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true

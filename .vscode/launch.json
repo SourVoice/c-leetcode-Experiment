@@ -19,7 +19,7 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "D://workstation//VSCode_for_c//c_path//mingw64//bin//gdb.exe",
+      "miDebuggerPath": "D://workstation//mingw64//bin//gdb.exe",
       "preLaunchTask": "C/C++: g++.exe 生成活动文件", //这里和task.json的label相对应
       "setupCommands": [
         {
