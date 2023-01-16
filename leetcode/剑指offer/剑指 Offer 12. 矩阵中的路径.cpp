@@ -49,13 +49,13 @@ public:
         for (auto &&dir : dirs)
         {
             int nx = x + dir[0], ny = y + dir[1];
-            if (nx >= 0 && nx < m && ny >= 0 && ny < n)
+            if (x >= 0 && x < m && y >= 0 && y < n)
             {
-                if (!visited[nx][ny] && boards[nx][ny] == word[wordPos])
+                if (!visited[x][y] && boards[x][y] == word[wordPos])
                 {
-                    visited[nx][ny] = 1;
+                    visited[x][y] = 1;
                     dfs(boards, word, visited, nx, ny, wordPos + 1);
-                    visited[nx][ny] = 0;
+                    visited[x][y] = 0;
                 }
             }
         }
