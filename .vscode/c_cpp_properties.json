@@ -5,7 +5,8 @@
       "includePath": ["${workspaceFolder}/**"],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
       "windowsSdkVersion": "10.0.18362.0",
-      "compilerPath": "D:/VS++/VC/Tools/MSVC/14.29.30037/bin/Hostx86/x64/cl.exe",
+      // "compilerPath": "D:/VS++/VC/Tools/MSVC/14.29.30037/bin/Hostx86/x64/cl.exe",
+      "compilerPath": "D:/workstation/mingw64/bin/gcc.exe",
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "windows-msvc-x64"

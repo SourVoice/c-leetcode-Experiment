@@ -36,17 +36,12 @@
     "unordered_map": "c"
   },
   "code-runner.executorMap": {
-    "cpp": "cd $dir && g++ -std=c++11 -finput-charset=GBK -fexec-charset=utf-8 $fileName -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe",
-    "c": " cd $dir && gcc $fileName -finput-charset=GBK -fexec-charset=utf-8 -D LOCAL -o D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe && D:\\workstation\\VSCode_for_c\\c_programming\\exe\\$fileNameWithoutExt.exe ", //结尾添加" > log.txt "结果输出到log.txt
+    "cpp": "cd $dir && g++ \"$fileName\" -std=c++17 -finput-charset=GBK -fexec-charset=utf-8 -I D:/workstation/sdks/boost_1_81_0_mingw_build/include/boost-1_81 -L D:/workstation/sdks/boost_1_81_0_mingw_build/lib -D LOCAL -o \"$workspaceRoot\\exe\\$fileNameWithoutExt.exe\" && \"$workspaceRoot\\exe\\$fileNameWithoutExt.exe\" && del \"$workspaceRoot\\exe\\$fileNameWithoutExt.exe\"",
+    "c": " cd $dir && gcc $fileName  -finput-charset=GBK -fexec-charset=utf-8 -D LOCAL -o $workspaceRoot\\exe\\$fileNameWithoutExt.exe && $workspaceRoot\\exe\\$fileNameWithoutExt.exe",
     "java": "cd $dir && javac $fileName && java $fileNameWithoutExt"
   },
   "asoul.reminderViewIntervalInMinutes": 30,
   "files.encoding": "gbk",
-  "writeCnblog": {
-    "rpcUrl": "https://rpc.cnblogs.com/metaweblog/ladies",
-    "userName": "RochesterBen",
-    "blogWorkspace": "D:\\workstation\\cnblogLocal"
-  },
   "zhihu.enableMermaidToPng": true,
   "zhihu.mermaidTheme": "dark", // 支持设置 mermaid 图片主题，默认值是 "default"
   "vscode-office.autoTheme": true,
@@ -57,5 +52,6 @@
   "jupyter.themeMatplotlibPlots": true,
   "workbench.colorCustomizations": {
     "editorIndentFuide.background": "#ff0000"
-  }
+  },
+  "python.formatting.provider": "yapf"
 }
