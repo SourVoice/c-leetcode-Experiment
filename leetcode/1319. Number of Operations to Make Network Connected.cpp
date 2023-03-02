@@ -19,27 +19,6 @@
 #include <math.h>
 #include <sstream>
 using namespace std;
-class Solution
-{
-public:
-    int makeConnected(int n, vector<vector<int>> &connections)
-    {
-        int cnt = connections.size();
-        if (cnt < n - 1)
-            return -1;
-        UnionFind uf(n);
-        sort(connections.begin(), connections.end());
-        for (auto &&vec : connections)
-        {
-            uf.join(vec[0], vec[1]);
-        }
-        for (auto &&vec : connections)
-        {
-            uf.join(vec[0], vec[1]);
-        }
-        return uf.getcnt() - 1;
-    }
-};
 class UnionFind
 {
 public:
@@ -57,11 +36,12 @@ public:
     {
         return u == father[u] ? u : father[u] = find(father[u]);
     }
+    // @brief 当元素全部进入并查集后再进行调用, 用于获取共有多少个联通集
     int getcnt()
     {
         unordered_set<int> parent;
         for (int i = 0; i < n; i++)
-            parent.insert(father[i]);
+            parent.insert(find(father[i])); // find() 为class UnionFind 的函数, 用于找到节点所在联通集的父节点
         return parent.size();
     }
     void join(int u, int v)
@@ -80,4 +60,21 @@ public:
 private:
     vector<int> father;
     int n;
+};
+class Solution
+{
+public:
+    int makeConnected(int n, vector<vector<int>> &connections)
+    {
+        int cnt = connections.size();
+        if (cnt < n - 1)
+            return -1;
+        UnionFind uf(n);
+        sort(connections.begin(), connections.end());
+        for (auto &&vec : connections)
+        {
+            uf.join(vec[0], vec[1]);
+        }
+        return uf.getcnt() - 1;
+    }
 };
