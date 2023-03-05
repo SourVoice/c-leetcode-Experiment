@@ -1,5 +1,17 @@
 // 450. 删除二叉搜索树中的节点
-
+#include <string>
+#include <stack>
+#include <bitset>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <cmath>
+#include <set>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <numeric>
+using namespace std;
 /**
  * Definition for a binary tree node.
  */
@@ -53,7 +65,7 @@ public:
         return root;
     }
 };
-
+// TODO: 重写
 //迭代
 class Solution2
 {
